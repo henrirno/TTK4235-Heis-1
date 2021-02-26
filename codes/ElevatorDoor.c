@@ -1,6 +1,6 @@
 #include "ElevatorDoor.h"
 
-bool OpenDoor(){
+bool openDoor(){
     /*
     if (GetFloor() == orderedFloor && OrderedDir == HardwareMovement){
         return true;

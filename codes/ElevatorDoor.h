@@ -5,5 +5,5 @@
 
 char ElevatorDirection();
 
-bool OpenDoor();
+bool openDoor();
 void OpenCloseDoor();
