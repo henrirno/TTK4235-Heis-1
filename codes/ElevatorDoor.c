@@ -2,7 +2,7 @@
 
 bool OpenDoor(){
     /*
-    if (GetFloor() == orderedFloor && OrderedDir == ElevatorMovement){
+    if (GetFloor() == orderedFloor && OrderedDir == HardwareMovement){
         return true;
     } else {
         return false;

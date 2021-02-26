@@ -12,5 +12,5 @@ void Light_clear_floor(){
     int floor = GetFloor();
     if (openDoor() == true)
         //button = "BTN_" + toString(floor); ???
-        elev_set_button_lamp(button, floor, 0);
+        //elev_set_button_lamp(button, floor, 0);
 }

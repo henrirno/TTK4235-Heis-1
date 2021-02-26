@@ -1,3 +1,11 @@
 #include "ButtonsOperation.h"
 
- void executeOrders()
+int insideOrders();
+
+int outsideOrders();
+
+void executeOrders();
+
+void createQueue();
+
+void placeOrder();
