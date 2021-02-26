@@ -1,5 +1,5 @@
 SIM := true
-SOURCES := main.c BasicState.c
+SOURCES := main.c BasicState.c 
 
 SOURCE_DIR := source
 BUILD_DIR := build
