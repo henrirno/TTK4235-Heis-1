@@ -9,4 +9,4 @@
 
 bool isInFloor();
 
-int GetFloor();
+int getFloor();

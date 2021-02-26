@@ -7,7 +7,7 @@ void BTN_Stop(){
             while (hardware_read_stop_signal() == 1){
                 hardware_command_door_open(1);
             }
-            //DoorOpen();
+            //doorOpen();
         }
     }
 }

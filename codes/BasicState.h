@@ -2,4 +2,4 @@
 
 #include "Sensors.h"
 
-bool Basicstate();
+bool basicState();

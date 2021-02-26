@@ -1,11 +1,12 @@
 #include "BasicState.h"
 
-bool Basicstate(){
-    bool inBasicState = false;
+bool basicState(){
     while (isInFloor() == false){
-        hardware_command_door_open(HARDWARE_MOVEMENT_DOWN); //door_open?
+        HARDWARE_MOVEMENT_DOWN; 
     }
-    inBasicState = true;
-    return (inBasicState);
+    if (isInFloor() == true) {
+        return true;
+    }
+    return false;
 }
 
