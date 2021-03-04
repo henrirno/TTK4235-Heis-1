@@ -1,4 +1,6 @@
-#include "Orders.h"
+#pragma once
+#include "hardware.h"
+#include "Elevator.h"
 
 int insideOrders(){
     for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++){   // Hardware_number_of_floors = 4
@@ -8,8 +10,28 @@ int insideOrders(){
     }
 }
 
-int outsideOrders(){
-    for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++){   // Hardware_number_of_floors = 4
+bool orders_above(Elevator elevator){
+    for (int floor = elevator.floor + 1; floor < HARDWARE_NUMBER_OF_FLOORS; floor++) {
+        for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++) {
+            if (elevator.orders[floor][btn]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool orders_below(Elevator elevator) {
+    for (int floor = 0; floor < elevator.floor; floor++) {
+        for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++) {
+            if (elevator.orders[floor][btn]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+/*
         if (hardware_read_order(i, HARDWARE_ORDER_UP) == 1) {
             return i; //int 1;
         } else if (hardware_read_order(i, HARDWARE_ORDER_DOWN) == 1) {
@@ -17,10 +39,12 @@ int outsideOrders(){
         }
     } 
     return -1;
-}
 
-void createMatrix(){
-    //int queue[4][3];
+*/
+
+
+//void createMatrix(){
+/*    //int queue[4][3];
     for (int x = 0; x < 4; x++){
         for (int y = 0; y < 3; y++){
             queue[x][y]=0;
@@ -28,6 +52,7 @@ void createMatrix(){
             }
     }
 }
+*/
 void execute_single_order(){
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
             /* Internal orders */
@@ -56,10 +81,25 @@ void go_to_floor(int goal_floor){
         door_timer();
         
         
-    }
+}
 
 void placeOrder(){
     
+}
+
+HardwareMovement choose_direction_orders(Elevator elevator) {
+    switch (elevator.movement) {
+    case HARDWARE_MOVEMENT_UP:
+        if (orders_above()) {
+            return HARDWARE_MOVEMENT_UP;
+        }
+        else if (orders_below()) {
+            return HARDWARE_MOVEMENT_DOWN;
+        }
+        return HARDWARE_MOVEMENT_STOP;
+    case HARDWARE_MOVEMENT_DOWN:
+
+    }
 }
 
 

@@ -1,24 +1,18 @@
+#pragma once
 #include "Orders.h"
+#include "hardware.h"
 
-/*
-struct Elevator {
-private:
-	int currentFloor;
-	HardwareMovement movement;
-	 
-public:
-//	Oppstart av heis:
-	Elevator(): currentFloor{ 0 }, movement{ HARDWARE_MOVEMENT_STOP }{
-		if (!basicState()) { // Holder vel med en if-setning for å få kjørt funksjonen?
-			cout << "Couldn't start elevator!\n";
-		}
-		currentFloor = getFloor();
-	}
-
-
-
+enum ElevatorBehaviour {
+	EB_Idle,
+	EB_DoorOpen,
+	EB_Moving
 };
-*/
 
-int setFloor(int goal_floor);
+struct Elevator {
+	ElevatorBehaviour	behaviour;
+	HardwareMovement	movement;
+	int					floor;
+	int					orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
+	Elevator 
+};
 
