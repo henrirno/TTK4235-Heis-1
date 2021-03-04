@@ -6,15 +6,21 @@ void set_current_floor_indicator(){
         hardware_command_floor_indicator_on(floor);
     }
 }
-void clear_floor_light(int up, int down, int floor){
-    int floor = matrix[0];
-    int dir = matrix[1];
-    if (dir = 0){
-        //go down
+void set_floor_light(int floor, int down, int up, int on){
+    // floor = x i matrix[x][y]
+    // down = matrix[x][y]
+    //up = matrix[x][y+1]
+    HardwareOrder order_type;
+    if (down == 1){
+        order_type = HARDWARE_ORDER_DOWN, ;
     }
-    else if (dir = 1) {
-        //go up
+    else if (up = 1) {
+        order_type = HARDWARE_ORDER_UP;
     }
+    else {
+        order_type = HARDWARE_ORDER_INSIDE;
     }
-    //pseudo: matrix[floor][dir] = 0;1
+    hardware_command_order_light(floor, order_type, on);
 }
+    //pseudo: matrix[floor][dir] = 0;1
+
