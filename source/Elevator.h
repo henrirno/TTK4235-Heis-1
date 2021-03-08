@@ -7,7 +7,8 @@
 typedef enum  {
 	EB_Idle,
 	EB_DoorOpen,
-	EB_Moving
+	EB_Moving,
+	EB_Initilizing
 } ElevatorBehaviour ;
 
 typedef struct {

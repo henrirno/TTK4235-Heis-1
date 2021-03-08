@@ -7,13 +7,13 @@
 #include "Elevator.h"*/
 #include "Functionality.h"
 
-
-static void clear_all_order_lights(){
-    HardwareOrder order_types[3] = {
+HardwareOrder order_types[3] = {
         HARDWARE_ORDER_UP,
         HARDWARE_ORDER_INSIDE,
         HARDWARE_ORDER_DOWN
     };
+
+static void clear_all_order_lights(){
 
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         for(int i = 0; i < 3; i++){
@@ -43,7 +43,7 @@ int main(){
         //execute_single_order();
         //go_to_floor(outsideOrders());
         
-
+        
         if(hardware_read_stop_signal()){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
@@ -53,9 +53,11 @@ int main(){
        // sjekker etasjer
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
         {
-            if (hardware_read_floor_sensor(i)){
+            if (hardware_read_floor_sensor(i) == 1){
                 elevator_arriving_floor(i);
-                printf("arrived at floor: %d\n",i);
+                
+                
+                
             }
         }
         if (hardware_read_floor_sensor(0) || hardware_read_floor_sensor(3)){
@@ -68,8 +70,8 @@ int main(){
         {
             for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
             {   
-                if (hardware_read_order(f,btn)){
-                        button_press_event(f,btn);
+                if (hardware_read_order(f,order_types[btn])){
+                        button_press_event(f,order_types[btn]);
                         printf("floor : %d  button : %d\n",f,btn);
                         //orders[f][btn] = 1;
                     }
@@ -100,7 +102,7 @@ int main(){
             
         }
         
-        
+        count ++;
 
         // SJEKKER TIMEOUT
         if (timed_out()){
