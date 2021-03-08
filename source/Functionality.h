@@ -1,9 +1,9 @@
 #ifndef FUNCTIONALITY_H
 #define FUNCTIONALITY_H
 
-#include "Elevator.h"
 #include "Orders.h"
 #include "timer.h"
+#include <stdio.h>
 
 void initialize_elevator();
 

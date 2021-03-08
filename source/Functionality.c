@@ -13,7 +13,7 @@ static Elevator elevator;
 void initialize_elevator() {
     elevator.movement = HARDWARE_MOVEMENT_DOWN;
     elevator.behaviour = EB_Moving;
-    elevator.floor = getFloor();
+    //elevator.floor = getFloor();
     hardware_command_movement(elevator.movement);
 }
 
@@ -30,13 +30,13 @@ void elevator_arriving_floor(int floor){
     case EB_Moving:
         if (should_elevator_stop(elevator) == 1) {
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            //hardware_command_door_open(1);
-            //door_timer();
+            hardware_command_door_open(1);
+            door_timer();
             Elevator temp_elev = clear_elevator_order(elevator);
             elevator = temp_elev;
-            set_floor_light(floor,HARDWARE_ORDER_DOWN, 1);    // Kanskje litt lang input her, men det ar kanskje det du mente p� labben p� mandag?
-            set_floor_light(floor,HARDWARE_ORDER_UP,1);
-            //elevator.behaviour = EB_DoorOpen;
+            //set_floor_light(floor,HARDWARE_ORDER_DOWN, 1);    // Kanskje litt lang input her, men det ar kanskje det du mente p� labben p� mandag?
+            //set_floor_light(floor,HARDWARE_ORDER_UP,1);
+            elevator.behaviour = EB_DoorOpen;
         }
         break;
     default:
@@ -48,7 +48,7 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
     switch (elevator.behaviour) {
     case EB_DoorOpen:  
         if (elevator.floor == btn_floor) {
-            //door_timer();
+            door_timer();
         }
         else {
             elevator.orders[btn_floor][order_type] = 1;
@@ -60,7 +60,7 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
         }
     case EB_Idle:
         if (elevator.floor == btn_floor) {
-            //printf(elevator.floor);
+            printf("%d,%d",elevator.floor,btn_floor);
             hardware_command_door_open(1);
             door_timer(); //start_door_timer()
             elevator.behaviour = EB_DoorOpen; // her kan den jo sendes til h�ndterer'en av EB_DoorOpen
@@ -75,11 +75,14 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
     case EB_Moving:
         elevator.orders[btn_floor][order_type] = 1;
         break;
-    
     default:
-        break;}
-    
-    set_floor_light(btn_floor, order_type, 1); // ikke helt riktig input her, nettoppp derfor den kanskje burde endres
+        break;
+    }
+    if (elevator.orders[btn_floor][order_type] == 1){
+        hardware_command_order_light(btn_floor,order_type,1);
+    }else {
+        hardware_command_order_light(btn_floor,order_type,0);
+    }
         
 }
 

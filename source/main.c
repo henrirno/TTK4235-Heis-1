@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
-#include "Orders.h"
-#include "Elevator.h"
+/*#include "Orders.h"
+#include "Elevator.h"*/
 #include "Functionality.h"
 
 
@@ -48,27 +48,38 @@ int main(){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
         }
+        
        
        // sjekker etasjer
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
         {
             if (hardware_read_floor_sensor(i)){
                 elevator_arriving_floor(i);
+                printf("arrived at floor: %d\n",i);
             }
+        }
+        if (hardware_read_floor_sensor(0) || hardware_read_floor_sensor(3)){
+            hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         }
 
         //sjekker knapper
-        //static int order[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
+        //static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
         for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
         {
             for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
             {   
+                if (hardware_read_order(f,btn)){
+                        button_press_event(f,btn);
+                        printf("floor : %d  button : %d\n",f,btn);
+                        //orders[f][btn] = 1;
+                    }
+                    /* 
                 switch (btn)
                 {
                 case 0:
 
-                    if (hardware_read_order(f,HARDWARE_ORDER_UP)){
-                        button_press_event(f,HARDWARE_ORDER_UP);
+                    if (hardware_read_order(f,btn)){
+                        button_press_event(f,btn);
                     }
                     break;
                 case 1:
@@ -84,6 +95,7 @@ int main(){
                 default:
                     break;
                 }
+                */
             }
             
         }
@@ -133,7 +145,7 @@ int main(){
             hardware_command_stop_light(0);
         }
         
-    
+    }
 
     return 0;
-}}
+}

@@ -44,16 +44,7 @@ int orders_below(Elevator elevator) {
 */
 
 
-//void createMatrix(){
-/*    //int queue[4][3];
-    for (int x = 0; x < 4; x++){
-        for (int y = 0; y < 3; y++){
-            queue[x][y]=0;
-            
-            }
-    }
-}
-*/
+
 void execute_single_order(){
     /*
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
@@ -140,13 +131,17 @@ Elevator clear_elevator_order(Elevator e) {
     {
     case HARDWARE_MOVEMENT_DOWN:
         e.orders[e.floor][HARDWARE_ORDER_DOWN] = 0;
+        hardware_command_order_light(e.floor,HARDWARE_ORDER_DOWN,0);
         break;
     case HARDWARE_MOVEMENT_UP:
         e.orders[e.floor][HARDWARE_ORDER_UP] = 0;
+        hardware_command_order_light(e.floor,HARDWARE_ORDER_UP,0);
         break;
     case HARDWARE_MOVEMENT_STOP:
         e.orders[e.floor][HARDWARE_ORDER_DOWN] = 0;
         e.orders[e.floor][HARDWARE_MOVEMENT_UP] = 0;
+        hardware_command_order_light(e.floor,HARDWARE_ORDER_UP,0);
+        hardware_command_order_light(e.floor,HARDWARE_ORDER_DOWN,0);
         break;
     default:
         break;

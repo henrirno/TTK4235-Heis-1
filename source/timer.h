@@ -1,8 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "Sensors.h"
-#include "LightOperations.h"
+#include "Elevator.h"
 #include <time.h>
 
 #define TIME_LIMIT 3
