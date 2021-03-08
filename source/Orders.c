@@ -91,37 +91,72 @@ HardwareMovement orders_choose_direction(Elevator elevator) {
         else if (orders_below(elevator)) {
             return HARDWARE_MOVEMENT_DOWN;
         }
+        printf("no orders below/above -> stop\n");
         return HARDWARE_MOVEMENT_STOP;
+        break;
     case HARDWARE_MOVEMENT_DOWN:
         if (orders_above(elevator)) {
+            
             return HARDWARE_MOVEMENT_UP;
         }
         else if (orders_below(elevator)) {
             return HARDWARE_MOVEMENT_DOWN;
+            
         }
         return HARDWARE_MOVEMENT_STOP;
-    default:
+        break;
+    case HARDWARE_MOVEMENT_STOP:
+        if (orders_above(elevator)) {
+            
+            return HARDWARE_MOVEMENT_UP;
+        }
+        else if (orders_below(elevator)) {
+            return HARDWARE_MOVEMENT_DOWN;
+            
+        }
         return HARDWARE_MOVEMENT_STOP;
+        break;
+    default:
+        printf("was and is stop\n");
+        return HARDWARE_MOVEMENT_STOP;
+        break;
     }
 }
 int should_elevator_stop(Elevator e) {
+    
+    
     switch (e.movement){
-    case HARDWARE_MOVEMENT_DOWN:            // HARDWARE_ORDER_DOWN = 2
-        if (e.orders[e.floor][HARDWARE_ORDER_DOWN] ||   // hvis den skal ned p� denne etasje eller
-            e.orders[e.floor][HARDWARE_ORDER_INSIDE]  ||  //  noen har bestilt inne i heise her eller
-            !orders_below(e)){                        //   det ikke er noen ordre lengre ned
+    case HARDWARE_MOVEMENT_DOWN:            // HARDWARE_ORDER_DOWN = 2 // hvis den skal ned p� denne etasje eller //  noen har bestilt inne i heise her eller//   det ikke er noen ordre lengre ned
+        if (e.orders[e.floor][HARDWARE_ORDER_DOWN] ||  
+            e.orders[e.floor][HARDWARE_ORDER_INSIDE]  ||  
+            !orders_below(e))
+        { 
             return 1;
-            }              
+        }
+        else 
+        {
+            return 0;
+        }
+        break;              
     case HARDWARE_MOVEMENT_UP:
         if (e.orders[e.floor][HARDWARE_ORDER_UP] ||  
             e.orders[e.floor][HARDWARE_ORDER_INSIDE]  ||  
-            !orders_above(e)){                        
+            !orders_above(e))
+        {                        
             return 1;
-            }  
+        }
+        else
+        {
+            return 0;
+        }  
+        break; 
+            
     case HARDWARE_MOVEMENT_STOP:
         return 1;
+        break;
     default:
         return 0;
+        break;
     }
 }
 

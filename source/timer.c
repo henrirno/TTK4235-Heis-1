@@ -11,7 +11,7 @@ void door_timer(){
             }
         }
         
-        time_start = time(NULL) + TIME_LIMIT;
+        //time_start = time(NULL) + TIME_LIMIT;
         isTimedOut = 1;      
 }
 int timed_out(){

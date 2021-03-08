@@ -32,11 +32,10 @@ int main(){
     }
     
     printf("=== Example Program ===\n");
-    printf("Press the stop button on the elevator panel to exit\n");
+    printf("Press the stop button on the elevator panel to exit\n\n");
 
     //hardware_command_movement(HARDWARE_MOVEMENT_UP);
     //while (!basicState()){}
-    //Elevator elevator;
     initialize_elevator();
     
     while(1){
@@ -55,9 +54,6 @@ int main(){
         {
             if (hardware_read_floor_sensor(i) == 1){
                 elevator_arriving_floor(i);
-                
-                
-                
             }
         }
         if (hardware_read_floor_sensor(0) || hardware_read_floor_sensor(3)){
@@ -71,41 +67,18 @@ int main(){
             for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
             {   
                 if (hardware_read_order(f,order_types[btn])){
-                        button_press_event(f,order_types[btn]);
-                        printf("floor : %d  button : %d\n",f,btn);
+                    //printf("floor : %d  button : %d\n",f,btn);
+                    button_press_event(f,btn);
+                        
                         //orders[f][btn] = 1;
                     }
-                    /* 
-                switch (btn)
-                {
-                case 0:
-
-                    if (hardware_read_order(f,btn)){
-                        button_press_event(f,btn);
-                    }
-                    break;
-                case 1:
-                    if (hardware_read_order(f,HARDWARE_ORDER_INSIDE)){
-                        button_press_event(f,HARDWARE_ORDER_INSIDE);
-                    }
-                    break;
-                case 2:
-                    if (hardware_read_order(f,HARDWARE_ORDER_DOWN)){
-                        button_press_event(f,HARDWARE_ORDER_DOWN);
-                    }
-                    break;
-                default:
-                    break;
-                }
-                */
-            }
-            
+        }
         }
         
-        count ++;
 
         // SJEKKER TIMEOUT
         if (timed_out()){
+            printf("timed out\n");
             close_door();
             reset_timer();
         }

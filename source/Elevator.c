@@ -1,1 +1,27 @@
 #include "Elevator.h"
+
+static Elevator elevator;
+
+void print_elevator_movement(HardwareMovement movement){
+    switch (movement)
+    {
+    case HARDWARE_MOVEMENT_DOWN:
+        printf("HARDWARE_MOVEMENT_DOWN\n");
+        break;
+    case HARDWARE_MOVEMENT_UP:
+        printf("HARDWARE_MOVEMENT_UP\n");
+        break;
+    case HARDWARE_MOVEMENT_STOP:
+        printf("HARDWARE_MOVEMENT_STOP\n");
+    }
+}
+void print_orders(){
+    for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
+        printf("[");
+        for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
+            printf("%d  ",elevator.orders[i][j]);
+        }
+        printf("]\n");
+    }
+    printf("\n\n");
+}
