@@ -1,0 +1,139 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include "hardware.h"
+#include "Orders.h"
+#include "Elevator.h"
+#include "Functionality.h"
+
+
+static void clear_all_order_lights(){
+    HardwareOrder order_types[3] = {
+        HARDWARE_ORDER_UP,
+        HARDWARE_ORDER_INSIDE,
+        HARDWARE_ORDER_DOWN
+    };
+
+    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+        for(int i = 0; i < 3; i++){
+            HardwareOrder type = order_types[i];
+            hardware_command_order_light(f, type, 0);
+        }
+    }
+}
+
+
+int main(){
+    int error = hardware_init();
+    if(error != 0){
+        fprintf(stderr, "Unable to initialize hardware\n");
+        exit(1);
+    }
+    
+    printf("=== Example Program ===\n");
+    printf("Press the stop button on the elevator panel to exit\n");
+
+    //hardware_command_movement(HARDWARE_MOVEMENT_UP);
+    //while (!basicState()){}
+    //Elevator elevator;
+    initialize_elevator();
+    
+    while(1){
+        //execute_single_order();
+        //go_to_floor(outsideOrders());
+        
+
+        if(hardware_read_stop_signal()){
+            hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            break;
+        }
+       
+       // sjekker etasjer
+        for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
+        {
+            if (hardware_read_floor_sensor(i)){
+                elevator_arriving_floor(i);
+            }
+        }
+
+        //sjekker knapper
+        //static int order[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
+        for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+        {
+            for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
+            {   
+                switch (btn)
+                {
+                case 0:
+
+                    if (hardware_read_order(f,HARDWARE_ORDER_UP)){
+                        button_press_event(f,HARDWARE_ORDER_UP);
+                    }
+                    break;
+                case 1:
+                    if (hardware_read_order(f,HARDWARE_ORDER_INSIDE)){
+                        button_press_event(f,HARDWARE_ORDER_INSIDE);
+                    }
+                    break;
+                case 2:
+                    if (hardware_read_order(f,HARDWARE_ORDER_DOWN)){
+                        button_press_event(f,HARDWARE_ORDER_DOWN);
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+            
+        }
+        
+        
+
+        // SJEKKER TIMEOUT
+        if (timed_out()){
+            close_door();
+            reset_timer();
+        }
+        
+        
+
+
+        /* All buttons must be polled, like this: */
+        for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+            if(hardware_read_floor_sensor(f)){
+                hardware_command_floor_indicator_on(f);
+            }
+        }
+
+        /* Lights are set and cleared like this: */
+        for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+            /* Internal orders */
+            if(hardware_read_order(f, HARDWARE_ORDER_INSIDE)){
+                hardware_command_order_light(f, HARDWARE_ORDER_INSIDE, 1);
+            }
+
+            /* Orders going up */
+            if(hardware_read_order(f, HARDWARE_ORDER_UP)){
+                hardware_command_order_light(f, HARDWARE_ORDER_UP, 1);
+            }
+
+            /* Orders going down */
+            if(hardware_read_order(f, HARDWARE_ORDER_DOWN)){
+                hardware_command_order_light(f, HARDWARE_ORDER_DOWN, 1);
+            }
+        }
+
+        /* Code to clear all lights given the obstruction signal */
+        if(hardware_read_obstruction_signal()){
+            hardware_command_stop_light(1);
+            clear_all_order_lights();
+        }
+        else{
+            hardware_command_stop_light(0);
+        }
+        
+    
+
+    return 0;
+}}
