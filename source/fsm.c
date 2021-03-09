@@ -75,24 +75,41 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
             
             printf("Button not on floor --> moving to %d\n",btn_floor);
             if (elevator.floor == -1){
+                elevator.floor = btn_floor;
                 printf("PREV_MOVEMENT:\n");
                 print_elevator_movement(elevator.prev_movement);
                 switch (elevator.prev_movement)
                 {
                 case HARDWARE_MOVEMENT_UP:
-                    elevator.floor = btn_floor - 1;
+                    if (btn_floor < elevator.prev_floor || btn_floor == elevator.prev_floor){
+                        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        break;
+                    }else if( btn_floor > elevator.prev_floor ){
+                        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        break;
+                    }
+                    //elevator.floor = btn_floor -1;
                     break;
                 case HARDWARE_MOVEMENT_DOWN:
-                    elevator.floor = btn_floor + 1;
+                    if (btn_floor > elevator.prev_floor || btn_floor == elevator.prev_floor){
+                        hardware_command_movement(HARDWARE_MOVEMENT_UP);
+                        break;
+                    }else if( btn_floor < elevator.prev_floor ){
+                        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        break;
+                    }
+                    //elevator.floor = btn_floor + 1;
                     break;
                 default:
                     break;
                 }
+            }else {
+                elevator.movement = orders_choose_direction(elevator);
+                elevator.prev_movement = elevator.movement;
+                hardware_command_movement(elevator.movement);
             }
             printf("Think on floor: %d\n",elevator.floor);
-            elevator.movement = orders_choose_direction(elevator);
-            elevator.prev_movement = elevator.movement;
-            hardware_command_movement(elevator.movement);
+            
             print_orders(elevator);
             /*
             printf("Think on floor: %d\n",elevator.floor);

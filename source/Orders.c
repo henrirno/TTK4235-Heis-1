@@ -82,6 +82,7 @@ int should_elevator_stop(Elevator elevator) {
             elevator.orders[elevator.floor][HARDWARE_ORDER_INSIDE]  ||  
             !orders_below(elevator))
         { 
+            print_orders();
             return 1;
         }
         else 
@@ -90,17 +91,16 @@ int should_elevator_stop(Elevator elevator) {
         }
         break;              
     case HARDWARE_MOVEMENT_UP:
-        printf("checking this floor: %d\n",elevator.floor);
         if (elevator.orders[elevator.floor][HARDWARE_ORDER_UP] ||  
             elevator.orders[elevator.floor][HARDWARE_ORDER_INSIDE]  ||  
             !orders_above(elevator))
         {   
-            printf("should stop\n");              
+                        
             return 1;
         }
         else
         {
-            printf("should not stop\n");
+            
             return 0;
         }  
         break; 
