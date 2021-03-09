@@ -11,17 +11,6 @@ HardwareOrder order_types[3] = {
         HARDWARE_ORDER_DOWN
     };
 
-static void clear_all_order_lights(){
-
-    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-        for(int i = 0; i < 3; i++){
-            HardwareOrder type = order_types[i];
-            hardware_command_order_light(f, type, 0);
-        }
-    }
-}
-
-
 int main(){
     int error = hardware_init();
     if(error != 0){
@@ -29,17 +18,19 @@ int main(){
         exit(1);
     }
     
-    printf("=== Example Program ===\n");
-    printf("Press the stop button on the elevator panel to exit\n\n");
+    printf("=== Heis gruppe 43 ===\n");
+    printf("    Have fun :D\n\n");
 
     
     initialize_elevator();
-    int prev_floor = -1;
+    int prev_floor_local = -1;
+    clear_all_order_lights();
     
     while(1){
        
+        
+        
         /*
-        clear_all_order_lights();
         if(hardware_read_stop_signal()){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
@@ -47,42 +38,73 @@ int main(){
         */
         
        
-       // sjekker etasjer
+       // sjekk etasjer
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
         {
             int floor = hardware_read_floor_sensor(i);
-            if (floor == 1 && prev_floor != i){
-                prev_floor = i;
+            if (floor == 1 && prev_floor_local != i){
+                prev_floor_local = i;
                 elevator_arriving_floor(i);
             }
         }
         
 
-        //sjekker knapper
-        static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
-        for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+        //sjekk knapper
         {
-            for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
-            {   
-                if (hardware_read_order(f,order_types[btn]) && orders[f][btn] != 1){
-                    printf("Floor: %d  \nButton: ",f);
-                    print_order_type(order_types[btn]);
-                    printf("\n");
-                    button_press_event(f,btn);
-                        
+            static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
+            for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
+                for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
+                    orders[i][j] = 0;
+                }
+            }
+            for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+            {
+                
+                for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
+                {   
+                    int btn_event = hardware_read_order(f,order_types[btn]);
+                    
+                    if (btn_event && orders[f][btn] != 1){
+                        /*
+                        printf("Floor: %d  \nButton: ",f);
+                        print_order_type(order_types[btn]);
+                        printf("\n");
+                        */
+
+                        button_press_event(f,btn);
                         orders[f][btn] = 1;
                     }
+                }
+                
+            }
+            
+        }
+        {// STOP HANDLING
+            int a = 0;
+            while (hardware_read_stop_signal()){
+                if (!a)
+                {
+                    printf("!   STOP    !\n");
+                }
+                
+                stop_button_pressed();
+                a = 1;
+            }
+            
+            if (a){
+                hardware_command_stop_light(0);
+                prev_floor_local = -1;
             }
         }
-        
-        if(hardware_read_obstruction_signal()){
+        if(hardware_read_obstruction_signal() && check_door_open()){
             start_timer();
         }
-        // SJEKKER TIMEOUT
+        // SJEKK TIMER
         if (timed_out()){
             printf("timed out\n");
             close_door();
             reset_timer();
+            
         }
         
     }

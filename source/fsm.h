@@ -1,8 +1,9 @@
-#ifndef FUNCTIONALITY_H
-#define FUNCTIONALITY_H
+#ifndef FSM_H
+#define FSM_H
 
 #include "Orders.h"
 #include "timer.h"
+
 #include <stdio.h>
 
 void initialize_elevator();
@@ -15,5 +16,12 @@ void close_door();
 
 void clear_order_light();
 
+int check_door_open();
+
+void stop_button_pressed();
+
+int at_floor();
+
+void clear_all_order_lights();
 
 #endif
