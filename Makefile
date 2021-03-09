@@ -1,5 +1,5 @@
 SIM := false
-SOURCES := main.c LightOperations.c Functionality.c Orders.c timer.c Sensors.c Elevator.c
+SOURCES := main.c fsm.c Orders.c timer.c Elevator.c
 
 SOURCE_DIR := source
 BUILD_DIR := build

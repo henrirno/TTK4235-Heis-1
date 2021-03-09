@@ -1,6 +1,5 @@
 #include "Elevator.h"
 
-static Elevator elevator;
 
 void print_elevator_movement(HardwareMovement movement){
     switch (movement)
@@ -15,7 +14,7 @@ void print_elevator_movement(HardwareMovement movement){
         printf("HARDWARE_MOVEMENT_STOP\n");
     }
 }
-void print_orders(){
+void print_orders(Elevator elevator){
     for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
         printf("[");
         for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
@@ -24,4 +23,19 @@ void print_orders(){
         printf("]\n");
     }
     printf("\n\n");
+}
+
+void print_order_type(HardwareOrder order_type){
+    switch (order_type)
+    {
+    case HARDWARE_ORDER_DOWN:
+        printf("HARDWARE_ORDER_DOWN\n");
+        break;
+    case HARDWARE_ORDER_INSIDE:
+        printf("HARDWARE_ORDER_INSIDE\n");
+        break;
+    case HARDWARE_ORDER_UP:
+        printf("HARDWARE_ORDER_UP\n");
+        break;
+    }
 }
