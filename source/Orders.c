@@ -120,11 +120,15 @@ Elevator clear_elevator_order(Elevator elevator) {
     {
     case HARDWARE_MOVEMENT_DOWN:
         elevator.orders[elevator.floor][HARDWARE_ORDER_DOWN] = 0;
+        elevator.orders[elevator.floor][HARDWARE_ORDER_UP] = 0;
         hardware_command_order_light(elevator.floor,HARDWARE_ORDER_DOWN,0);
+        hardware_command_order_light(elevator.floor,HARDWARE_ORDER_UP,0);
         break;
     case HARDWARE_MOVEMENT_UP:
         elevator.orders[elevator.floor][HARDWARE_ORDER_UP] = 0;
+        elevator.orders[elevator.floor][HARDWARE_ORDER_DOWN] = 0;
         hardware_command_order_light(elevator.floor,HARDWARE_ORDER_UP,0);
+        hardware_command_order_light(elevator.floor,HARDWARE_ORDER_DOWN,0);
         break;
     case HARDWARE_MOVEMENT_STOP:
         elevator.orders[elevator.floor][HARDWARE_ORDER_DOWN] = 0;
