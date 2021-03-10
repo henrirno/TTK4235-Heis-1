@@ -82,7 +82,7 @@ int should_elevator_stop(Elevator elevator) {
             elevator.orders[elevator.floor][HARDWARE_ORDER_INSIDE]  ||  
             !orders_below(elevator))
         { 
-            print_orders();
+            //print_orders(elevator);
             return 1;
         }
         else 

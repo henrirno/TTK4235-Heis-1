@@ -50,20 +50,15 @@ int main(){
         
 
         //sjekk knapper
-        {
+        
             static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
-            for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
-                for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
-                    orders[i][j] = 0;
-                }
-            }
+            
             for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
             {
                 
                 for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
                 {   
                     int btn_event = hardware_read_order(f,order_types[btn]);
-                    
                     if (btn_event && orders[f][btn] != 1){
                         /*
                         printf("Floor: %d  \nButton: ",f);
@@ -78,7 +73,7 @@ int main(){
                 
             }
             
-        }
+        
         {// STOP HANDLING
             int a = 0;
             while (hardware_read_stop_signal()){
@@ -94,6 +89,12 @@ int main(){
             if (a){
                 hardware_command_stop_light(0);
                 prev_floor_local = -1;
+                // legger til denne her også fordi det printes: HARDWARE_STOP
+                for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
+                    for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
+                        orders[i][j] = 0;
+                    }
+                }
             }
         }
         if(hardware_read_obstruction_signal() && check_door_open()){
@@ -104,6 +105,12 @@ int main(){
             printf("timed out\n");
             close_door();
             reset_timer();
+            // CLEAR LOCAL VARIABLE - hadde den orgianlt lengre opp under while(1)
+            for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
+                for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
+                    orders[i][j] = 0;
+                }
+            }
             
         }
         

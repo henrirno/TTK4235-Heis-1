@@ -24,7 +24,7 @@ void elevator_arriving_floor(int floor){
     {
     case EB_Moving:
         //print_elevator_movement(elevator.movement);
-        printf("Arriving floor: %d\n", floor);
+        //printf("Arriving floor: %d\n", floor);
         if (should_elevator_stop(elevator) == 1) {
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             hardware_command_door_open(1);
@@ -82,20 +82,25 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
                 {
                 case HARDWARE_MOVEMENT_UP:
                     if (btn_floor < elevator.prev_floor || btn_floor == elevator.prev_floor){
+                        elevator.movement = HARDWARE_MOVEMENT_DOWN;
                         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
                         break;
                     }else if( btn_floor > elevator.prev_floor ){
-                        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        elevator.movement = HARDWARE_MOVEMENT_UP;
+                        //var hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        hardware_command_movement(elevator.movement);
                         break;
                     }
                     //elevator.floor = btn_floor -1;
                     break;
                 case HARDWARE_MOVEMENT_DOWN:
                     if (btn_floor > elevator.prev_floor || btn_floor == elevator.prev_floor){
-                        hardware_command_movement(HARDWARE_MOVEMENT_UP);
+                        elevator.movement = HARDWARE_MOVEMENT_UP;
+                        hardware_command_movement(elevator.movement);
                         break;
                     }else if( btn_floor < elevator.prev_floor ){
-                        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+                        elevator.movement = HARDWARE_MOVEMENT_DOWN;
+                        hardware_command_movement(elevator.movement);
                         break;
                     }
                     //elevator.floor = btn_floor + 1;
