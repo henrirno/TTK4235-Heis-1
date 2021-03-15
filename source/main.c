@@ -60,12 +60,6 @@ int main(){
                 {   
                     int btn_event = hardware_read_order(f,order_types[btn]);
                     if (btn_event && orders[f][btn] != 1){
-                        /*
-                        printf("Floor: %d  \nButton: ",f);
-                        print_order_type(order_types[btn]);
-                        printf("\n");
-                        */
-
                         button_press_event(f,btn);
                         orders[f][btn] = 1;
                     }
@@ -75,21 +69,21 @@ int main(){
             
         
         {// STOP HANDLING
-            int a = 0;
+            int is_stop_button_pressed = 0;
             while (hardware_read_stop_signal()){
-                if (!a)
+                if (!is_stop_button_pressed)
                 {
                     printf("!   STOP    !\n");
                 }
                 
                 stop_button_pressed();
-                a = 1;
+                is_stop_button_pressed = 1;
             }
             
-            if (a){
+            if (is_stop_button_pressed){
                 hardware_command_stop_light(0);
                 prev_floor_local = -1;
-                // legger til denne her også fordi det printes: HARDWARE_STOP
+                
                 for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
                     for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
                         orders[i][j] = 0;

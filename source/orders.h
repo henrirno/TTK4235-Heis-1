@@ -1,7 +1,7 @@
 #ifndef ORDERS_H
 #define ORDERS_H
 
-#include "Elevator.h"
+#include "elevator.h"
 #include "fsm.h"
 #include <stdio.h>
 

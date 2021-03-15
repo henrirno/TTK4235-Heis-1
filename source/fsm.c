@@ -4,7 +4,7 @@ static Elevator elevator;
 
 void initialize_elevator() {
     elevator.movement = HARDWARE_MOVEMENT_DOWN;
-    elevator.behaviour = EB_Initilizing;
+    elevator.behaviour = Initializing;
     for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
         for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
             elevator.orders[i][j] = 0;
@@ -22,7 +22,7 @@ void elevator_arriving_floor(int floor){
    
     switch (elevator.behaviour)
     {
-    case EB_Moving:
+    case Moving:
         //print_elevator_movement(elevator.movement);
         //printf("Arriving floor: %d\n", floor);
         if (should_elevator_stop(elevator) == 1) {
@@ -35,13 +35,13 @@ void elevator_arriving_floor(int floor){
             //clear_order_light();
             //elevator = clear_elevator_order(elevator);
             
-            elevator.behaviour = EB_DoorOpen;
+            elevator.behaviour = DoorOpen;
         }
         break;
-    case EB_Initilizing:
+    case Initializing:
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         printf("Elevator initialized, now Idle\n");
-        elevator.behaviour = EB_Idle;
+        elevator.behaviour = Idle;
         break;
     default:
         printf("not doing anything smart\n");
@@ -51,7 +51,7 @@ void elevator_arriving_floor(int floor){
 
 void button_press_event(int btn_floor, HardwareOrder order_type) {
     switch (elevator.behaviour) {
-    case EB_DoorOpen:  
+    case DoorOpen:  
         printf("door open\n");
         if (elevator.floor == btn_floor) {
             start_timer();
@@ -60,12 +60,12 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
             elevator.orders[btn_floor][order_type] = 1;
         }
         break;
-    case EB_Idle:
+    case Idle:
         if (elevator.floor == btn_floor) {
             printf("it is on pressed floor\n");
             hardware_command_door_open(1);
             start_timer(); 
-            elevator.behaviour = EB_DoorOpen; // her kan den jo sendes til h�ndterer'en av EB_DoorOpen
+            elevator.behaviour = DoorOpen; // her kan den jo sendes til h�ndterer'en av DoorOpen
         }
         else {
             //if (btn_floor != 0 && order_type != 0){
@@ -129,11 +129,11 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
             */
             printf("\nCurrent elevator.movement:\n");
             print_elevator_movement(elevator.movement);
-            elevator.behaviour = EB_Moving;
+            elevator.behaviour = Moving;
             
         }
         break;
-    case EB_Moving:
+    case Moving:
         elevator.orders[btn_floor][order_type] = 1;
         //printf("\nCurrent elevator.behaviour:\n");
         //print_elevator_behaviour(elevator.behaviour);
@@ -152,7 +152,7 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
 }
 
 void close_door() {
-    if (elevator.behaviour == EB_DoorOpen) {
+    if (elevator.behaviour == DoorOpen) {
         clear_order_light();
         //print_orders();
         elevator = clear_elevator_order(elevator);
@@ -164,10 +164,10 @@ void close_door() {
 
         
         if (elevator.movement == HARDWARE_MOVEMENT_STOP) {
-            elevator.behaviour = EB_Idle;
+            elevator.behaviour = Idle;
         }
         else {
-            elevator.behaviour = EB_Moving; 
+            elevator.behaviour = Moving; 
         }
     }
     
@@ -205,7 +205,7 @@ void clear_order_light(){
 }
 
 int check_door_open(){
-    if (elevator.behaviour == EB_DoorOpen){
+    if (elevator.behaviour == DoorOpen){
         return 1;
     }
     return 0;
@@ -221,7 +221,9 @@ int at_floor(){
     return 0;
 }
 void stop_button_pressed(){   
-    
+    if (elevator.behaviour == Initializing){
+        return;
+    }
     clear_all_order_lights();
     elevator = clear_all_orders(elevator);
     elevator.movement = HARDWARE_MOVEMENT_STOP;
@@ -229,12 +231,12 @@ void stop_button_pressed(){
     hardware_command_stop_light(1);
     if (at_floor()){
         printf("Door open\n");
-        elevator.behaviour = EB_DoorOpen;
+        elevator.behaviour = DoorOpen;
         hardware_command_door_open(1);
         start_timer();
         return;
     }
     elevator.floor  = -1;
-    elevator.behaviour = EB_Idle;
+    elevator.behaviour = Idle;
 }
 

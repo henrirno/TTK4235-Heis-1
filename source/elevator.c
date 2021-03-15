@@ -1,4 +1,4 @@
-#include "Elevator.h"
+#include "elevator.h"
 
 
 void print_elevator_movement(HardwareMovement movement){
@@ -43,14 +43,14 @@ void print_order_type(HardwareOrder order_type){
 void print_elevator_behaviour(ElevatorBehaviour	behaviour){
     switch (behaviour)
     {
-    case EB_DoorOpen:
-        printf("EB_DoorOpen\n");
+    case DoorOpen:
+        printf("DoorOpen\n");
         break;
-    case EB_Idle:
-        printf("EB_Idle\n");
+    case Idle:
+        printf("Idle\n");
         break;
-    case EB_Moving:
-        printf("EB_Moving\n");
+    case Moving:
+        printf("Moving\n");
         break;
     default:
         break;
