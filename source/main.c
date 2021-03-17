@@ -28,16 +28,6 @@ int main(){
     
     while(1){
        
-        
-        
-        /*
-        if(hardware_read_stop_signal()){
-            hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            break;
-        }
-        */
-        
-       
        // sjekk etasjer
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
         {

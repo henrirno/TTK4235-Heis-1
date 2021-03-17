@@ -70,7 +70,6 @@ HardwareMovement orders_choose_direction(Elevator elevator) {
         return HARDWARE_MOVEMENT_STOP;
         break;
     default:
-        printf("was and is stop\n");
         return HARDWARE_MOVEMENT_STOP;
         break;
     }

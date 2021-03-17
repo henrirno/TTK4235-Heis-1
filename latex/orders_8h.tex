@@ -1,0 +1,169 @@
+\hypertarget{orders_8h}{}\section{source/orders.h File Reference}
+\label{orders_8h}\index{source/orders.\+h@{source/orders.\+h}}
+
+
+Bestillingsfunskjoner til heisen.  
+
+
+{\ttfamily \#include \char`\"{}elevator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fsm.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for orders.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{orders_8h_ac21934f71f4bb189b4eae5ad99df6e35}{orders\+\_\+above} (\hyperlink{structElevator}{Elevator} elevator)
+\begin{DoxyCompactList}\small\item\em Sjekker om det er ordre i etasjene over den n�v�rende etasjen. \end{DoxyCompactList}\item 
+int \hyperlink{orders_8h_ab6fec971bec8c2deb33838ef17e1b145}{orders\+\_\+below} (\hyperlink{structElevator}{Elevator} elevator)
+\begin{DoxyCompactList}\small\item\em Sjekker om det er ordre i etasjene under den n�v�rende etasjen. \end{DoxyCompactList}\item 
+\hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement} \hyperlink{orders_8h_ac798c8e2147661360650786aa340733c}{orders\+\_\+choose\+\_\+direction} (\hyperlink{structElevator}{Elevator} elevator)
+\begin{DoxyCompactList}\small\item\em En funksjon som bestemmer hvilken retning heisen skal g�. \end{DoxyCompactList}\item 
+int \hyperlink{orders_8h_a55986bac372c7737b6147ac40752b61a}{should\+\_\+elevator\+\_\+stop} (\hyperlink{structElevator}{Elevator} elevator)
+\begin{DoxyCompactList}\small\item\em En funksjon som bestemmer om heisen skal stoppe, avhengig av hvilken retning den har, om det er ordre fra gangen i den retningen eller videre samme retning eller ordre innenfra til den etasjen. \end{DoxyCompactList}\item 
+\hyperlink{structElevator}{Elevator} \hyperlink{orders_8h_a8e152980be3e7a19995db52587fdd647}{clear\+\_\+elevator\+\_\+order} (\hyperlink{structElevator}{Elevator} e)
+\begin{DoxyCompactList}\small\item\em Fjerner alle ordrene og lys i den etasjen heisen er i. \end{DoxyCompactList}\item 
+\hyperlink{structElevator}{Elevator} \hyperlink{orders_8h_a8ce561916e2ae9724daa1e996a454866}{clear\+\_\+all\+\_\+orders} (\hyperlink{structElevator}{Elevator} elevator)
+\begin{DoxyCompactList}\small\item\em Fjerner alle ordrene og tilsvarende lys til heisen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Bestillingsfunskjoner til heisen. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{orders_8h_a8ce561916e2ae9724daa1e996a454866}\label{orders_8h_a8ce561916e2ae9724daa1e996a454866}} 
+\index{orders.\+h@{orders.\+h}!clear\+\_\+all\+\_\+orders@{clear\+\_\+all\+\_\+orders}}
+\index{clear\+\_\+all\+\_\+orders@{clear\+\_\+all\+\_\+orders}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{clear\+\_\+all\+\_\+orders()}{clear\_all\_orders()}}
+{\footnotesize\ttfamily \hyperlink{structElevator}{Elevator} clear\+\_\+all\+\_\+orders (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+Fjerner alle ordrene og tilsvarende lys til heisen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende etasje.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+elevator for � oppdatere ordrene til den globale heisen. 
+\end{DoxyReturn}
+
+
+Definition at line 144 of file orders.\+c.
+
+\mbox{\Hypertarget{orders_8h_a8e152980be3e7a19995db52587fdd647}\label{orders_8h_a8e152980be3e7a19995db52587fdd647}} 
+\index{orders.\+h@{orders.\+h}!clear\+\_\+elevator\+\_\+order@{clear\+\_\+elevator\+\_\+order}}
+\index{clear\+\_\+elevator\+\_\+order@{clear\+\_\+elevator\+\_\+order}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{clear\+\_\+elevator\+\_\+order()}{clear\_elevator\_order()}}
+{\footnotesize\ttfamily \hyperlink{structElevator}{Elevator} clear\+\_\+elevator\+\_\+order (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{e }\end{DoxyParamCaption})}
+
+
+
+Fjerner alle ordrene og lys i den etasjen heisen er i. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende etasje og eventuelt sette ordren her til 0.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+elevator for � oppdatere ordrene til den globale heisen. 
+\end{DoxyReturn}
+
+
+Definition at line 116 of file orders.\+c.
+
+\mbox{\Hypertarget{orders_8h_ac21934f71f4bb189b4eae5ad99df6e35}\label{orders_8h_ac21934f71f4bb189b4eae5ad99df6e35}} 
+\index{orders.\+h@{orders.\+h}!orders\+\_\+above@{orders\+\_\+above}}
+\index{orders\+\_\+above@{orders\+\_\+above}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{orders\+\_\+above()}{orders\_above()}}
+{\footnotesize\ttfamily int orders\+\_\+above (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+Sjekker om det er ordre i etasjene over den n�v�rende etasjen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende etasje, samt sjekke ordre i etasjene over.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 hvis det er ordre over n�v�rende etasje, 0 hvis ikke. 
+\end{DoxyReturn}
+
+
+Definition at line 3 of file orders.\+c.
+
+\mbox{\Hypertarget{orders_8h_ab6fec971bec8c2deb33838ef17e1b145}\label{orders_8h_ab6fec971bec8c2deb33838ef17e1b145}} 
+\index{orders.\+h@{orders.\+h}!orders\+\_\+below@{orders\+\_\+below}}
+\index{orders\+\_\+below@{orders\+\_\+below}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{orders\+\_\+below()}{orders\_below()}}
+{\footnotesize\ttfamily int orders\+\_\+below (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+Sjekker om det er ordre i etasjene under den n�v�rende etasjen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende etasje, samt sjekke ordre i etasjene under.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 hvis det er ordre under n�v�rende etasje, 0 hvis ikke. 
+\end{DoxyReturn}
+
+
+Definition at line 21 of file orders.\+c.
+
+\mbox{\Hypertarget{orders_8h_ac798c8e2147661360650786aa340733c}\label{orders_8h_ac798c8e2147661360650786aa340733c}} 
+\index{orders.\+h@{orders.\+h}!orders\+\_\+choose\+\_\+direction@{orders\+\_\+choose\+\_\+direction}}
+\index{orders\+\_\+choose\+\_\+direction@{orders\+\_\+choose\+\_\+direction}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{orders\+\_\+choose\+\_\+direction()}{orders\_choose\_direction()}}
+{\footnotesize\ttfamily \hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement} orders\+\_\+choose\+\_\+direction (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+En funksjon som bestemmer hvilken retning heisen skal g�. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende bevegelse.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hardware\+Movement\+: H\+A\+R\+D\+W\+A\+R\+E\+\_\+\+M\+O\+V\+E\+M\+E\+N\+T\+\_\+\+UP, H\+A\+R\+D\+W\+A\+R\+E\+\_\+\+M\+O\+V\+E\+M\+E\+N\+T\+\_\+\+D\+O\+WN eller H\+A\+R\+D\+W\+A\+R\+E\+\_\+\+M\+O\+V\+E\+M\+E\+N\+T\+\_\+\+S\+T\+OP avhengig av hvilken retning heisen har og om det er ordre under eller over. 
+\end{DoxyReturn}
+
+
+Definition at line 35 of file orders.\+c.
+
+\mbox{\Hypertarget{orders_8h_a55986bac372c7737b6147ac40752b61a}\label{orders_8h_a55986bac372c7737b6147ac40752b61a}} 
+\index{orders.\+h@{orders.\+h}!should\+\_\+elevator\+\_\+stop@{should\+\_\+elevator\+\_\+stop}}
+\index{should\+\_\+elevator\+\_\+stop@{should\+\_\+elevator\+\_\+stop}!orders.\+h@{orders.\+h}}
+\subsubsection{\texorpdfstring{should\+\_\+elevator\+\_\+stop()}{should\_elevator\_stop()}}
+{\footnotesize\ttfamily int should\+\_\+elevator\+\_\+stop (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+En funksjon som bestemmer om heisen skal stoppe, avhengig av hvilken retning den har, om det er ordre fra gangen i den retningen eller videre samme retning eller ordre innenfra til den etasjen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Heisen brukes som input for � finne n�v�rende bevegelse, posisjon og ordrene.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 hvis skal stoppe, 0 hvis ikke. 
+\end{DoxyReturn}
+
+
+Definition at line 77 of file orders.\+c.
+

@@ -24,7 +24,7 @@ void elevator_arriving_floor(int floor){
     {
     case Moving:
         //print_elevator_movement(elevator.movement);
-        //printf("Arriving floor: %d\n", floor);
+        printf("Arriving floor: %d\n", floor+1);
         if (should_elevator_stop(elevator) == 1) {
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             hardware_command_door_open(1);
@@ -71,9 +71,11 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
             //if (btn_floor != 0 && order_type != 0){
                 elevator.orders[btn_floor][order_type] = 1;
             //}
+            printf("Floor : %d\n", btn_floor +1);
+            printf("Order : ");
+            print_order_type(order_type);
             
-            
-            printf("Button not on floor --> moving to %d\n",btn_floor);
+            printf("\nButton not on floor --> moving to %d\n",btn_floor + 1);
             if (elevator.floor == -1){
                 elevator.floor = btn_floor;
                 printf("PREV_MOVEMENT:\n");
@@ -113,7 +115,7 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
                 elevator.prev_movement = elevator.movement;
                 hardware_command_movement(elevator.movement);
             }
-            printf("Think on floor: %d\n",elevator.floor);
+            //printf("Think on floor: %d\n",elevator.floor);
             
             print_orders(elevator);
             /*

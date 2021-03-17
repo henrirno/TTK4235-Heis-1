@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Bevegelse- og tilstands-typer for heisen
+ */
+
 #ifndef ELEVATOR_H
 #define ELEVATOR_H
 #include "hardware.h"
@@ -6,7 +11,10 @@
 /**
  * @brief Datatype som beskriver tilstanden til heisen.
  *
- * @param Idle @param DoorOpen @param Moving @param Initializing Heisbevegelse.
+ * @param Idle Heis står i ro.
+ * @param DoorOpen Heisdør er åpen.
+ * @param Moving Heisen er i bevegelse.
+ * @param Initializing Heisen er initialisers.
  */
 typedef enum  {
 	Idle,
