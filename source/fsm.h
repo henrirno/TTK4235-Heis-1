@@ -28,7 +28,7 @@ void initialize_elevator();
 void elevator_arriving_floor(int floor);
 
 /**
- * @brief Hvis heisen er i den aktuelle etasjen, så åpner den døren. Hvis den ikke er i etasje legger den inn bestilling: Sjekker om heisen er i bevegelse, og bytter retning hvis forrige bestilling er over og på vei opp eller motsatt. Hvis heis ikke er i bevegelse, starter heisen etter den bestillingen. I tillegg printer den heisbevegelsen til terminalen og skrur på det aktuelle bestillingslyset.
+ * @brief Hvis heisen er i den aktuelle etasjen, så åpner den døren. Hvis den ikke legger den inn bestilling: Sjekker om heisen er i bevegelse, og bytter retning hvis forrige bestilling er over og på vei opp eller motsatt. Hvis heis ikke er i bevegelse, starter heisen etter den bestillingen. I tillegg printer den heisbevegelsen til terminalen og skrur på det aktuelle bestillingslyset.
  *
  * @param[in] btn_floor i hvilken etasje knappen ble trykket på.
  * @param[in] order_type forteller type HardwareOrder.
@@ -56,7 +56,7 @@ void clear_order_light();
 /**
  * @brief Sjekker om døren er åpen og returnerer henholdsvis 0 eller 1. 
  *
- * @return Returnerer 1 hvis døren er åpen og 0 hvis ikke.
+ * @return 1 hvis døren er åpen og 0 hvis ikke.
  */
 int check_door_open();
 
@@ -69,9 +69,9 @@ int check_door_open();
 void stop_button_pressed();
 
 /**
- * @brief Sjekker om heisen er i en etasje og returnerer henholdsvis 0 eller 1.
+ * @brief Sjekker om heisen faktisk er i en etasjen den tror den er i.
  *
- * @return returnerer 1 hvis heisen er i en etasje og 0 hvis ikke. 
+ * @return 1 hvis heisen er i en etasjen, 0 hvis ikke. 
  */
 int at_floor();
 
