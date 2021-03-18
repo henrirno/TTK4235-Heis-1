@@ -65,12 +65,10 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
             printf("it is on pressed floor\n");
             hardware_command_door_open(1);
             start_timer(); 
-            elevator.behaviour = DoorOpen; // her kan den jo sendes til h�ndterer'en av DoorOpen
+            elevator.behaviour = DoorOpen; 
         }
         else {
-            //if (btn_floor != 0 && order_type != 0){
-                elevator.orders[btn_floor][order_type] = 1;
-            //}
+            elevator.orders[btn_floor][order_type] = 1;
             printf("Floor : %d\n", btn_floor +1);
             printf("Order : ");
             print_order_type(order_type);
