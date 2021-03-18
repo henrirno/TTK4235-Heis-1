@@ -34,7 +34,7 @@ int orders_below(Elevator elevator);
 *
 * @param[in] elevator For aa finne naavaerende bevegelse.
 *
-* @return HardwareMovement: HARDWARE_MOVEMENT_UP, HARDWARE_MOVEMENT_DOWN eller HARDWARE_MOVEMENT_STOP - avhengig av hvilken retning heisen har og om det er ordre under eller over.
+* @return @p HardwareMovement: HARDWARE_MOVEMENT_UP, HARDWARE_MOVEMENT_DOWN eller HARDWARE_MOVEMENT_STOP - avhengig av hvilken retning heisen har og om det er ordre under eller over.
 */
 HardwareMovement orders_choose_direction(Elevator elevator);
 
@@ -52,7 +52,7 @@ int should_elevator_stop(Elevator elevator);
 *
 * @param[in, out] elevator Heis for aa finne naavaerende etasje og sette ordren her til null.
 *
-* @return elevator for aa oppdatere ordrene til den globale heisen.
+* @return @p elevator for aa oppdatere ordrene til den globale heisen.
 */
 Elevator clear_elevator_order(Elevator elevator);
 
@@ -61,7 +61,7 @@ Elevator clear_elevator_order(Elevator elevator);
 *
 * @param[in, out] elevator For aa kunne sette alle ordrene til heisen til null.
 *
-* @return elevator for aa oppdatere ordrene til den globale heisen.
+* @return @p elevator for aa oppdatere ordrene til den globale heisen.
 */
 Elevator clear_all_orders(Elevator elevator);
 #endif

@@ -13,7 +13,7 @@ digraph "source/orders.h"
   Node4 [label="fsm.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$fsm_8h.html",tooltip="Koden til tilstandsmaskinen til heisen. "];
   Node4 -> Node0 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node5 [label="timer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8h.html",tooltip="Timer for heisdøren. "];
+  Node5 [label="timer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8h.html",tooltip="Timer for heisdoor. "];
   Node5 -> Node1 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node6 [label="time.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];

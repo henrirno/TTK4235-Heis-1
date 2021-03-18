@@ -16,21 +16,21 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{fsm_8h_adafc33a2a11b884298303941b49f8be5}{initialize\+\_\+elevator} ()
-\begin{DoxyCompactList}\small\item\em Heisen gjøres klart til bruk ved å gå til nærmeste underetasje og deretter nullstille bestillingsmatrisen. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Heisen gjøres klart til bruk ved aa gaa til nærmeste underetasje og deretter nullstille bestillingsmatrisen. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_a5002047d4be90850c4c01050595935a7}{elevator\+\_\+arriving\+\_\+floor} (int floor)
-\begin{DoxyCompactList}\small\item\em Stopper heisen på etasje og åpner dør, eller hvis inititialized stopper den heisen og setter \hyperlink{structElevator}{Elevator} Behaviour til idle. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Stopper heisen paa etasje og aapner door, eller hvis inititialisert stopper den heisen og setter Elevator\+Behaviour til Idle. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_affd87d2ba18ceed5071f7e18198cc5dc}{button\+\_\+press\+\_\+event} (int btn\+\_\+floor, \hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order} order\+\_\+type)
-\begin{DoxyCompactList}\small\item\em Hvis heisen er i den aktuelle etasjen, så åpner den døren. Hvis den ikke er i etasje legger den inn bestilling\+: Sjekker om heisen er i bevegelse, og bytter retning hvis forrige bestilling er over og på vei opp eller motsatt. Hvis heis ikke er i bevegelse, starter heisen etter den bestillingen. I tillegg printer den heisbevegelsen til terminalen og skrur på det aktuelle bestillingslyset. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Haandterer knappetrykk for alle heisens tilstander. Legger til ordre til etasje {\ttfamily btn\+\_\+floor} av type  i köen. Setter retning til heisen hvis den staar i ro. Funksjonen bestemmer ogsaa retning hvis stoppknapp har blitt trykket, ved hjelp av {\ttfamily elevator.\+prev\+\_\+floor} og {\ttfamily elevator.\+prev\+\_\+movement}. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_a7e9a332d026a32072d6080c2f1264813}{close\+\_\+door} ()
-\begin{DoxyCompactList}\small\item\em Lukker døren, skrur av den aktuelle bestillingslampen og nullstiller bestillingen. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Lukker door, skrur av den aktuelle bestillingslampen og nullstiller bestillingen. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_afa3e685a3ff6ef91ed685514a8cc9b0d}{clear\+\_\+order\+\_\+light} ()
-\begin{DoxyCompactList}\small\item\em Skrur av bestillingslampe spesifisert på bestillingstype. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Skrur av bestillingslampe spesifisert paa bestillingstype. \end{DoxyCompactList}\item 
 int \hyperlink{fsm_8h_a37f48fc7801516522a55b52156eec1d0}{check\+\_\+door\+\_\+open} ()
-\begin{DoxyCompactList}\small\item\em Sjekker om døren er åpen og returnerer henholdsvis 0 eller 1. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Sjekker om door er aapen. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_a6dd61dcda897b3bd3a34856aa0140f4e}{stop\+\_\+button\+\_\+pressed} ()
-\begin{DoxyCompactList}\small\item\em Hvis stopp-\/knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen står stille i nåværende posisjon frem til knappen ikke holdes inne. Setter også nåværende etasje til -\/1, så heisen er uavhengig av tidligere bevegelser når stopp-\/knappen ikke lenger trykkes inne. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Hvis stopp-\/knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen staar stille i naavaerende posisjon frem til knappen ikke holdes inne. \end{DoxyCompactList}\item 
 int \hyperlink{fsm_8h_a5c851c5ad2e7848eb3be84835fe7991e}{at\+\_\+floor} ()
-\begin{DoxyCompactList}\small\item\em Sjekker om heisen er i en etasje og returnerer henholdsvis 0 eller 1. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Sjekker om heisen faktisk er i etasjen den tror den er i. \end{DoxyCompactList}\item 
 void \hyperlink{fsm_8h_afd77151474c3e94d7c52fd75413ae3ca}{clear\+\_\+all\+\_\+order\+\_\+lights} ()
 \begin{DoxyCompactList}\small\item\em Nullstiller alle bestillingslamper. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -49,14 +49,14 @@ Koden til tilstandsmaskinen til heisen.
 
 
 
-Sjekker om heisen er i en etasje og returnerer henholdsvis 0 eller 1. 
+Sjekker om heisen faktisk er i etasjen den tror den er i. 
 
 \begin{DoxyReturn}{Returns}
-returnerer 1 hvis heisen er i en etasje og 0 hvis ikke. 
+1 hvis heisen er i en etasjen, 0 hvis ikke. 
 \end{DoxyReturn}
 
 
-Definition at line 215 of file fsm.\+c.
+Definition at line 187 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_affd87d2ba18ceed5071f7e18198cc5dc}\label{fsm_8h_affd87d2ba18ceed5071f7e18198cc5dc}} 
 \index{fsm.\+h@{fsm.\+h}!button\+\_\+press\+\_\+event@{button\+\_\+press\+\_\+event}}
@@ -66,24 +66,20 @@ Definition at line 215 of file fsm.\+c.
 
 
 
-Hvis heisen er i den aktuelle etasjen, så åpner den døren. Hvis den ikke er i etasje legger den inn bestilling\+: Sjekker om heisen er i bevegelse, og bytter retning hvis forrige bestilling er over og på vei opp eller motsatt. Hvis heis ikke er i bevegelse, starter heisen etter den bestillingen. I tillegg printer den heisbevegelsen til terminalen og skrur på det aktuelle bestillingslyset. 
+Haandterer knappetrykk for alle heisens tilstander. Legger til ordre til etasje {\ttfamily btn\+\_\+floor} av type  i köen. Setter retning til heisen hvis den staar i ro. Funksjonen bestemmer ogsaa retning hvis stoppknapp har blitt trykket, ved hjelp av {\ttfamily elevator.\+prev\+\_\+floor} og {\ttfamily elevator.\+prev\+\_\+movement}. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em btn\+\_\+floor} & i hvilken etasje knappen ble trykket på. \\
+\mbox{\tt in}  & {\em btn\+\_\+floor} & Hvilken etasje knappen ble trykket paa. \\
 \hline
-\mbox{\tt in}  & {\em order\+\_\+type} & forteller type Hardware\+Order. \\
+\mbox{\tt in}  & {\em order\+\_\+type} & Forteller type Hardware\+Order. \\
 \hline
-\mbox{\tt out}  & {\em orders} & bestillingen registreres i bestillingsmatrisen. \\
-\hline
-\mbox{\tt out}  & {\em movement} & heisbevegelsen er gitt ut i fra bestillingen. \\
-\hline
-\mbox{\tt out}  & {\em behavior} & forteller at heisen nå er i bevegelse. \\
+\mbox{\tt in,out}  & {\em elevator} & Henter og eventuelt endrer heisens tilstand. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 52 of file fsm.\+c.
+Definition at line 46 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_a37f48fc7801516522a55b52156eec1d0}\label{fsm_8h_a37f48fc7801516522a55b52156eec1d0}} 
 \index{fsm.\+h@{fsm.\+h}!check\+\_\+door\+\_\+open@{check\+\_\+door\+\_\+open}}
@@ -93,14 +89,19 @@ Definition at line 52 of file fsm.\+c.
 
 
 
-Sjekker om døren er åpen og returnerer henholdsvis 0 eller 1. 
+Sjekker om door er aapen. 
 
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Henter tilstand. \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returnerer 1 hvis døren er åpen og 0 hvis ikke. 
+1 hvis door er aapen og 0 hvis ikke. 
 \end{DoxyReturn}
 
 
-Definition at line 209 of file fsm.\+c.
+Definition at line 181 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_afd77151474c3e94d7c52fd75413ae3ca}\label{fsm_8h_afd77151474c3e94d7c52fd75413ae3ca}} 
 \index{fsm.\+h@{fsm.\+h}!clear\+\_\+all\+\_\+order\+\_\+lights@{clear\+\_\+all\+\_\+order\+\_\+lights}}
@@ -114,14 +115,12 @@ Nullstiller alle bestillingslamper.
 
 
 \begin{DoxyParams}[1]{Parameters}
- & {\em $\ast$} & \\
-\hline
-\mbox{\tt out}  & {\em orders} & bestillingsmatrisen. \\
+\mbox{\tt in}  & {\em elevator} & Henter inn bestillingsmatrisen. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 178 of file fsm.\+c.
+Definition at line 150 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_afa3e685a3ff6ef91ed685514a8cc9b0d}\label{fsm_8h_afa3e685a3ff6ef91ed685514a8cc9b0d}} 
 \index{fsm.\+h@{fsm.\+h}!clear\+\_\+order\+\_\+light@{clear\+\_\+order\+\_\+light}}
@@ -131,16 +130,16 @@ Definition at line 178 of file fsm.\+c.
 
 
 
-Skrur av bestillingslampe spesifisert på bestillingstype. 
+Skrur av bestillingslampe spesifisert paa bestillingstype. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt out}  & {\em time\+\_\+start} & global tidsreferanse for å sette timer-\/tiden \\
+\mbox{\tt in}  & {\em elevator} & Henter bestillinger og etasje. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 193 of file fsm.\+c.
+Definition at line 165 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_a7e9a332d026a32072d6080c2f1264813}\label{fsm_8h_a7e9a332d026a32072d6080c2f1264813}} 
 \index{fsm.\+h@{fsm.\+h}!close\+\_\+door@{close\+\_\+door}}
@@ -150,18 +149,16 @@ Definition at line 193 of file fsm.\+c.
 
 
 
-Lukker døren, skrur av den aktuelle bestillingslampen og nullstiller bestillingen. 
+Lukker door, skrur av den aktuelle bestillingslampen og nullstiller bestillingen. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt out}  & {\em movement} & heisbevegelsen er gitt ut i fra bestillingen. \\
-\hline
-\mbox{\tt out}  & {\em behavior} & forteller om heisen er i Idle, bevegelse eller om døren åpnes. \\
+\mbox{\tt in,out}  & {\em elevator} & Endrer heisbevegelsen oppförsel og bevegelse. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 156 of file fsm.\+c.
+Definition at line 131 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_a5002047d4be90850c4c01050595935a7}\label{fsm_8h_a5002047d4be90850c4c01050595935a7}} 
 \index{fsm.\+h@{fsm.\+h}!elevator\+\_\+arriving\+\_\+floor@{elevator\+\_\+arriving\+\_\+floor}}
@@ -171,18 +168,18 @@ Definition at line 156 of file fsm.\+c.
 
 
 
-Stopper heisen på etasje og åpner dør, eller hvis inititialized stopper den heisen og setter \hyperlink{structElevator}{Elevator} Behaviour til idle. 
+Stopper heisen paa etasje og aapner door, eller hvis inititialisert stopper den heisen og setter Elevator\+Behaviour til Idle. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em floor} & forteller hvilken etasje heisen er i \\
+\mbox{\tt in}  & {\em floor} & Forteller hvilken etasje heisen er i. \\
 \hline
-\mbox{\tt out}  & {\em behavior} & behaviour settes til Door\+Open eller Idle avhengig av casen til heisen \\
+\mbox{\tt in,out}  & {\em elevator} & Henter tilstand og oppdaterer elevator.\+floor \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 18 of file fsm.\+c.
+Definition at line 16 of file fsm.\+c.
 
 \mbox{\Hypertarget{fsm_8h_adafc33a2a11b884298303941b49f8be5}\label{fsm_8h_adafc33a2a11b884298303941b49f8be5}} 
 \index{fsm.\+h@{fsm.\+h}!initialize\+\_\+elevator@{initialize\+\_\+elevator}}
@@ -192,13 +189,11 @@ Definition at line 18 of file fsm.\+c.
 
 
 
-Heisen gjøres klart til bruk ved å gå til nærmeste underetasje og deretter nullstille bestillingsmatrisen. 
+Heisen gjøres klart til bruk ved aa gaa til nærmeste underetasje og deretter nullstille bestillingsmatrisen. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt out}  & {\em movement} & heisbevegelsen blir satt med retning ned. \\
-\hline
-\mbox{\tt out}  & {\em behavior} & heisen blir satt \\
+\mbox{\tt in,out}  & {\em movement} & Heisbevegelsen og oppførsel endres. \\
 \hline
 \end{DoxyParams}
 
@@ -213,16 +208,14 @@ Definition at line 5 of file fsm.\+c.
 
 
 
-Hvis stopp-\/knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen står stille i nåværende posisjon frem til knappen ikke holdes inne. Setter også nåværende etasje til -\/1, så heisen er uavhengig av tidligere bevegelser når stopp-\/knappen ikke lenger trykkes inne. 
+Hvis stopp-\/knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen staar stille i naavaerende posisjon frem til knappen ikke holdes inne. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt out}  & {\em behaviour} & forteller om heisens tilstand \\
-\hline
-\mbox{\tt out}  & {\em floor} & nåværende etasje \\
+\mbox{\tt out}  & {\em elevator} & Endrer heisbevegelsen, oppförsel og etasje. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 225 of file fsm.\+c.
+Definition at line 197 of file fsm.\+c.
 

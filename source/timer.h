@@ -17,21 +17,21 @@
 /**
  * @brief Nullstiller tidsvariabelen time_start.
  *
- * @param[out] time_start Global tidsreferanse for aa sette timer-tiden.
+ * @param[in, out] time_start Global tidsreferanse for aa sette timer-tiden.
  */
 void reset_timer();
 
 /**
  * @brief Funksjon som definerer tidsvariabelen til timeren.
  *
- * @param[out] time_start Global tidsreferanse for aa sette timer-tiden.
+ * @param[in, out] time_start Global tidsreferanse for aa sette timer-tiden.
  */
 void start_timer();
 
 /**
  * @brief Beskriver om tiden til timeren er ute eller ikke.
  *
- * @param[out] time_start Global tidsreferanse for aa sette timer-tiden.
+ * @param[in,out] time_start Global tidsreferanse for aa sette timer-tiden.
  * 
  * @return 1 hvis timeren har gaatt i 3 sekunder (dette prosjektet TIME_LIMIT), og 0 hvis ikke.
  */

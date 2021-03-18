@@ -30,15 +30,12 @@ enum \hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behavio
 \item 
 void \hyperlink{elevator_8h_ad6522e724c307eeccef1e11669509b5d}{print\+\_\+elevator\+\_\+movement} (\hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement} movement)
 \begin{DoxyCompactList}\small\item\em Printer heisbevegelsene opp, ned og stopp til terminalen. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}\label{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}} 
-void \hyperlink{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}{print\+\_\+orders} ()
+void \hyperlink{elevator_8h_a5579c35807d1149a7247d670622fa039}{print\+\_\+orders} (\hyperlink{structElevator}{Elevator} elevator)
 \begin{DoxyCompactList}\small\item\em Printer ut en 4x3 matrise med bestillinger til terminalen. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}\label{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}} 
 void \hyperlink{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}{print\+\_\+order\+\_\+type} (\hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order} order\+\_\+type)
-\begin{DoxyCompactList}\small\item\em Printer mellom bestillingstypene utside-\/opp, utside-\/ned og innside-\/bestilling til terminalen. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{elevator_8h_a78c4226956267b8a735e68bb7c161930}\label{elevator_8h_a78c4226956267b8a735e68bb7c161930}} 
+\begin{DoxyCompactList}\small\item\em Printer bestillingstypen {\ttfamily order\+\_\+type} til terminalen. \end{DoxyCompactList}\item 
 void \hyperlink{elevator_8h_a78c4226956267b8a735e68bb7c161930}{print\+\_\+elevator\+\_\+behaviour} (\hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behaviour} behaviour)
-\begin{DoxyCompactList}\small\item\em Printer Elevator\+Behaviour til terminalen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Printer tilstanden til heisen til terminalen. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -59,9 +56,9 @@ Datatype som beskriver tilstanden til heisen.
 
 
 \begin{DoxyParams}{Parameters}
-{\em Idle} & Heis står i ro. \\
+{\em Idle} & Heis staar i ro. \\
 \hline
-{\em Door\+Open} & Heisdør er åpen. \\
+{\em Door\+Open} & Heisdoor er aapen. \\
 \hline
 {\em Moving} & Heisen er i bevegelse. \\
 \hline
@@ -75,6 +72,25 @@ Definition at line 19 of file elevator.\+h.
 
 
 \subsection{Function Documentation}
+\mbox{\Hypertarget{elevator_8h_a78c4226956267b8a735e68bb7c161930}\label{elevator_8h_a78c4226956267b8a735e68bb7c161930}} 
+\index{elevator.\+h@{elevator.\+h}!print\+\_\+elevator\+\_\+behaviour@{print\+\_\+elevator\+\_\+behaviour}}
+\index{print\+\_\+elevator\+\_\+behaviour@{print\+\_\+elevator\+\_\+behaviour}!elevator.\+h@{elevator.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+elevator\+\_\+behaviour()}{print\_elevator\_behaviour()}}
+{\footnotesize\ttfamily void print\+\_\+elevator\+\_\+behaviour (\begin{DoxyParamCaption}\item[{\hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behaviour}}]{behaviour }\end{DoxyParamCaption})}
+
+
+
+Printer tilstanden til heisen til terminalen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em behaviour} & Heistilstand. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file elevator.\+c.
+
 \mbox{\Hypertarget{elevator_8h_ad6522e724c307eeccef1e11669509b5d}\label{elevator_8h_ad6522e724c307eeccef1e11669509b5d}} 
 \index{elevator.\+h@{elevator.\+h}!print\+\_\+elevator\+\_\+movement@{print\+\_\+elevator\+\_\+movement}}
 \index{print\+\_\+elevator\+\_\+movement@{print\+\_\+elevator\+\_\+movement}!elevator.\+h@{elevator.\+h}}
@@ -86,11 +102,49 @@ Definition at line 19 of file elevator.\+h.
 Printer heisbevegelsene opp, ned og stopp til terminalen. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em movement} & Heisbevegelse. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em movement} & Heisbevegelse. \\
 \hline
 \end{DoxyParams}
 
 
 Definition at line 4 of file elevator.\+c.
+
+\mbox{\Hypertarget{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}\label{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}} 
+\index{elevator.\+h@{elevator.\+h}!print\+\_\+order\+\_\+type@{print\+\_\+order\+\_\+type}}
+\index{print\+\_\+order\+\_\+type@{print\+\_\+order\+\_\+type}!elevator.\+h@{elevator.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+order\+\_\+type()}{print\_order\_type()}}
+{\footnotesize\ttfamily void print\+\_\+order\+\_\+type (\begin{DoxyParamCaption}\item[{\hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order}}]{order\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Printer bestillingstypen {\ttfamily order\+\_\+type} til terminalen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em order\+\_\+type} & Bestillingstypen. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 28 of file elevator.\+c.
+
+\mbox{\Hypertarget{elevator_8h_a5579c35807d1149a7247d670622fa039}\label{elevator_8h_a5579c35807d1149a7247d670622fa039}} 
+\index{elevator.\+h@{elevator.\+h}!print\+\_\+orders@{print\+\_\+orders}}
+\index{print\+\_\+orders@{print\+\_\+orders}!elevator.\+h@{elevator.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+orders()}{print\_orders()}}
+{\footnotesize\ttfamily void print\+\_\+orders (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator}}]{elevator }\end{DoxyParamCaption})}
+
+
+
+Printer ut en 4x3 matrise med bestillinger til terminalen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em elevator} & Henter ordren fra heisen. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file elevator.\+c.
 
