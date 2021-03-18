@@ -7,8 +7,6 @@ void start_timer(){
 }
 int timed_out(){
     if (time(NULL) > time_start && time_start != 0){
-        //printf("timed out\n");
-        //printf("%s", asctime(gmtime(&time_start)));
         return 1;
     }
     return 0;

@@ -46,25 +46,28 @@ typedef struct {
 /**
  * @brief Printer heisbevegelsene opp, ned og stopp til terminalen.
  *
- * @param movement Heisbevegelse.
+ * @param[in] movement Heisbevegelse.
  */
 void print_elevator_movement(HardwareMovement movement);
 
 /**
  * @brief Printer ut en 4x3 matrise med bestillinger til terminalen.
+ * 
+ * @param[in] elevator Henter ordren fra heisen.
  */
-void print_orders();
+void print_orders(Elevator elevator);
 
 /**
- * @brief Printer mellom bestillingstypene utside-opp, utside-ned og innside-bestilling til terminalen.
+ * @brief Printer bestillingstypen @p order_type til terminalen.
  *
- * 
+ * @param[in] order_type 
  */
 void print_order_type(HardwareOrder order_type);
 
 /**
- * @brief Printer ElevatorBehaviour til terminalen.
+ * @brief Printer tilstanden til heisen til terminalen.
  *
+ * @param[in] behaviour Heistilstand.
  */
 void print_elevator_behaviour(ElevatorBehaviour	behaviour);
 #endif
