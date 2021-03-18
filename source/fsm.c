@@ -9,9 +9,7 @@ void initialize_elevator() {
         for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
             elevator.orders[i][j] = 0;
         }
-        //clear_all_order_lights();
     }
-    
     hardware_command_movement(elevator.movement);
 }
 
@@ -23,18 +21,14 @@ void elevator_arriving_floor(int floor){
     switch (elevator.behaviour)
     {
     case Moving:
-        //print_elevator_movement(elevator.movement);
         printf("Arriving floor: %d\n", floor+1);
         if (should_elevator_stop(elevator) == 1) {
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            
             hardware_command_door_open(1);
-
             printf("\nShould stop --> start timer\n");
             start_timer();
-            
-            //clear_order_light();
-            //elevator = clear_elevator_order(elevator);
-            
+
             elevator.behaviour = DoorOpen;
         }
         break;
@@ -69,11 +63,12 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
         }
         else {
             elevator.orders[btn_floor][order_type] = 1;
+            
             printf("Floor : %d\n", btn_floor +1);
             printf("Order : ");
             print_order_type(order_type);
-            
             printf("\nButton not on floor --> moving to %d\n",btn_floor + 1);
+            
             if (elevator.floor == -1){
                 elevator.floor = btn_floor;
                 printf("PREV_MOVEMENT:\n");
@@ -87,11 +82,9 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
                         break;
                     }else if( btn_floor > elevator.prev_floor ){
                         elevator.movement = HARDWARE_MOVEMENT_UP;
-                        //var hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
                         hardware_command_movement(elevator.movement);
                         break;
                     }
-                    //elevator.floor = btn_floor -1;
                     break;
                 case HARDWARE_MOVEMENT_DOWN:
                     if (btn_floor > elevator.prev_floor || btn_floor == elevator.prev_floor){
@@ -103,7 +96,6 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
                         hardware_command_movement(elevator.movement);
                         break;
                     }
-                    //elevator.floor = btn_floor + 1;
                     break;
                 default:
                     break;
@@ -113,31 +105,16 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
                 elevator.prev_movement = elevator.movement;
                 hardware_command_movement(elevator.movement);
             }
-            //printf("Think on floor: %d\n",elevator.floor);
             
             print_orders(elevator);
-            /*
-            printf("Think on floor: %d\n",elevator.floor);
-            if (elevator.floor == -1){
-                elevator.floor = elevator.prev_floor;
-                if (at_floor() == 0)
-                {
-                    elevator.floor = elevator.floor -1;
-                }
-            }
-            printf("Fake floor: %d\n",elevator.floor);
-            */
             printf("\nCurrent elevator.movement:\n");
             print_elevator_movement(elevator.movement);
-            elevator.behaviour = Moving;
             
+            elevator.behaviour = Moving;
         }
         break;
     case Moving:
         elevator.orders[btn_floor][order_type] = 1;
-        //printf("\nCurrent elevator.behaviour:\n");
-        //print_elevator_behaviour(elevator.behaviour);
-        //print_orders(elevator);
         break;
     default:
         printf("not doing anything smart with btn\n");
@@ -154,7 +131,6 @@ void button_press_event(int btn_floor, HardwareOrder order_type) {
 void close_door() {
     if (elevator.behaviour == DoorOpen) {
         clear_order_light();
-        //print_orders();
         elevator = clear_elevator_order(elevator);
         print_orders();
         elevator.movement = orders_choose_direction(elevator);
@@ -162,15 +138,13 @@ void close_door() {
         hardware_command_movement(elevator.movement);
         printf("closed door\n\n");
 
-        
         if (elevator.movement == HARDWARE_MOVEMENT_STOP) {
             elevator.behaviour = Idle;
         }
         else {
             elevator.behaviour = Moving; 
         }
-    }
-    
+    }   
 }
 
 void clear_all_order_lights(){
@@ -229,6 +203,7 @@ void stop_button_pressed(){
     elevator.movement = HARDWARE_MOVEMENT_STOP;
     hardware_command_movement(elevator.movement);
     hardware_command_stop_light(1);
+    
     if (at_floor()){
         printf("Door open\n");
         elevator.behaviour = DoorOpen;
@@ -236,6 +211,7 @@ void stop_button_pressed(){
         start_timer();
         return;
     }
+    
     elevator.floor  = -1;
     elevator.behaviour = Idle;
 }

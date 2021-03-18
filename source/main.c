@@ -28,7 +28,7 @@ int main(){
     
     while(1){
        
-       // sjekk etasjer
+       // SJEKK ETASJER
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++)
         {
             int floor = hardware_read_floor_sensor(i);
@@ -37,50 +37,45 @@ int main(){
                 elevator_arriving_floor(i);
             }
         }
-        
-
-        //sjekk knapper
-        
-            static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
+        //SJEKK KNAPPER
+        static int orders[HARDWARE_NUMBER_OF_FLOORS][HARDWARE_NUMBER_OF_BUTTONS];
             
-            for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+        for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+        {
+                
+            for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
+            {   
+                int btn_event = hardware_read_order(f,order_types[btn]);
+                if (btn_event && orders[f][btn] != 1){
+                    button_press_event(f,btn);
+                    orders[f][btn] = 1;
+                }
+            }
+                
+        }
+        // STOPP HAANDTERING
+        int is_stop_button_pressed = 0;
+        while (hardware_read_stop_signal()){
+            if (!is_stop_button_pressed)
             {
-                
-                for (int btn = 0; btn < HARDWARE_NUMBER_OF_BUTTONS; btn++)
-                {   
-                    int btn_event = hardware_read_order(f,order_types[btn]);
-                    if (btn_event && orders[f][btn] != 1){
-                        button_press_event(f,btn);
-                        orders[f][btn] = 1;
-                    }
-                }
-                
+                printf("!   STOP    !\n");
             }
-            
-        
-        {// STOP HANDLING
-            int is_stop_button_pressed = 0;
-            while (hardware_read_stop_signal()){
-                if (!is_stop_button_pressed)
-                {
-                    printf("!   STOP    !\n");
-                }
                 
-                stop_button_pressed();
-                is_stop_button_pressed = 1;
-            }
+            stop_button_pressed();
+            is_stop_button_pressed = 1;
+        }
             
-            if (is_stop_button_pressed){
-                hardware_command_stop_light(0);
-                prev_floor_local = -1;
+        if (is_stop_button_pressed){
+            hardware_command_stop_light(0);
+            prev_floor_local = -1;
                 
-                for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
-                    for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
-                        orders[i][j] = 0;
-                    }
+            for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
+                for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
+                    orders[i][j] = 0;
                 }
             }
         }
+        
         if(hardware_read_obstruction_signal() && check_door_open()){
             start_timer();
         }
@@ -89,7 +84,8 @@ int main(){
             printf("timed out\n");
             close_door();
             reset_timer();
-            // CLEAR LOCAL VARIABLE - hadde den orgianlt lengre opp under while(1)
+
+            // CLEAR LOCAL VARIABLE
             for (int i = 0 ; i < HARDWARE_NUMBER_OF_FLOORS; i++){
                 for (int j = 0; j < HARDWARE_NUMBER_OF_BUTTONS; j++){
                     orders[i][j] = 0;
