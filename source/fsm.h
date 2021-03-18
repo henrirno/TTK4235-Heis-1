@@ -28,13 +28,16 @@ void initialize_elevator();
 void elevator_arriving_floor(int floor);
 
 /**
- * @brief Hvis heisen er i den aktuelle etasjen, så åpner den døren. Hvis den ikke legger den inn bestilling: Sjekker om heisen er i bevegelse, og bytter retning hvis forrige bestilling er over og på vei opp eller motsatt. Hvis heis ikke er i bevegelse, starter heisen etter den bestillingen. I tillegg printer den heisbevegelsen til terminalen og skrur på det aktuelle bestillingslyset.
+ * @brief Forklar hovedfunksjonaliteten til funksjonen og ikke hva den gjør i detalj.
+ Haandterer knappetrykk for alle heisens tilstander. Legger til ordre til etasje @p btn_floor av type @order_type i köen. Setter retning til heisen hvis den staar i ro. Funksjonen bestemmer ogsaa retning hvis stoppknapp har blitt trykket, ved hjelp av @p elevator.prev_floor og @p elevator.prev_movement
  *
- * @param[in] btn_floor i hvilken etasje knappen ble trykket på.
- * @param[in] order_type forteller type HardwareOrder.
- * @param[out] orders bestillingen registreres i bestillingsmatrisen.
- * @param[out] movement heisbevegelsen er gitt ut i fra bestillingen.
- * @param[out] behavior forteller at heisen nå er i bevegelse.
+ * @param[in] btn_floor Hvilken etasje knappen ble trykket på.
+ * @param[in] order_type Forteller type HardwareOrder.
+ * @param[in] elevator.prev_floor Heisens tidligere etasje.
+ * @param[in] elevator.prev_movement Heisens tidligere bevegelse.
+ * @param[out] elevator.orders Bestillingen registreres i bestillingsmatrisen.
+ * @param[out] elevator.movement Heisbevegelsen blir satt ut ifra bestillingen.
+ * @param[out] elevator.behavior Tilstanden til heisen.
  */
 void button_press_event(int btn_floor, HardwareOrder order_type);
 
