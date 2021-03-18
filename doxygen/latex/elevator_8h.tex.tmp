@@ -1,0 +1,96 @@
+\hypertarget{elevator_8h}{}\section{source/elevator.h File Reference}
+\label{elevator_8h}\index{source/elevator.\+h@{source/elevator.\+h}}
+
+
+Bevegelse-\/ og tilstands-\/typer for heisen.  
+
+
+{\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for elevator.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structElevator}{Elevator}
+\begin{DoxyCompactList}\small\item\em Konstruerer en struct med heisens bevegelser, etasjer og bestillinger som medlemsvariabler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behaviour} \{ {\bfseries Idle}, 
+{\bfseries Door\+Open}, 
+{\bfseries Moving}, 
+{\bfseries Initializing}
+ \}\begin{DoxyCompactList}\small\item\em Datatype som beskriver tilstanden til heisen. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{elevator_8h_ad6522e724c307eeccef1e11669509b5d}{print\+\_\+elevator\+\_\+movement} (\hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement} movement)
+\begin{DoxyCompactList}\small\item\em Printer heisbevegelsene opp, ned og stopp til terminalen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}\label{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}} 
+void \hyperlink{elevator_8h_ac32c3fe361f28863c01da1c0ac93cf81}{print\+\_\+orders} ()
+\begin{DoxyCompactList}\small\item\em Printer ut en 4x3 matrise med bestillinger til terminalen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}\label{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}} 
+void \hyperlink{elevator_8h_ad29041fd7df62efec8a4ef2bef6e9a36}{print\+\_\+order\+\_\+type} (\hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order} order\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Printer mellom bestillingstypene utside-\/opp, utside-\/ned og innside-\/bestilling til terminalen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevator_8h_a78c4226956267b8a735e68bb7c161930}\label{elevator_8h_a78c4226956267b8a735e68bb7c161930}} 
+void \hyperlink{elevator_8h_a78c4226956267b8a735e68bb7c161930}{print\+\_\+elevator\+\_\+behaviour} (\hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behaviour} behaviour)
+\begin{DoxyCompactList}\small\item\em Printer Elevator\+Behaviour til terminalen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Bevegelse-\/ og tilstands-\/typer for heisen. 
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}\label{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}} 
+\index{elevator.\+h@{elevator.\+h}!Elevator\+Behaviour@{Elevator\+Behaviour}}
+\index{Elevator\+Behaviour@{Elevator\+Behaviour}!elevator.\+h@{elevator.\+h}}
+\subsubsection{\texorpdfstring{Elevator\+Behaviour}{ElevatorBehaviour}}
+{\footnotesize\ttfamily enum \hyperlink{elevator_8h_a386e600527947c8cc6a0fd6b483be5c6}{Elevator\+Behaviour}}
+
+
+
+Datatype som beskriver tilstanden til heisen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Idle} & Heis står i ro. \\
+\hline
+{\em Door\+Open} & Heisdør er åpen. \\
+\hline
+{\em Moving} & Heisen er i bevegelse. \\
+\hline
+{\em Initializing} & Heisen er initialisers. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 19 of file elevator.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{elevator_8h_ad6522e724c307eeccef1e11669509b5d}\label{elevator_8h_ad6522e724c307eeccef1e11669509b5d}} 
+\index{elevator.\+h@{elevator.\+h}!print\+\_\+elevator\+\_\+movement@{print\+\_\+elevator\+\_\+movement}}
+\index{print\+\_\+elevator\+\_\+movement@{print\+\_\+elevator\+\_\+movement}!elevator.\+h@{elevator.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+elevator\+\_\+movement()}{print\_elevator\_movement()}}
+{\footnotesize\ttfamily void print\+\_\+elevator\+\_\+movement (\begin{DoxyParamCaption}\item[{\hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement}}]{movement }\end{DoxyParamCaption})}
+
+
+
+Printer heisbevegelsene opp, ned og stopp til terminalen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em movement} & Heisbevegelse. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 4 of file elevator.\+c.
+
