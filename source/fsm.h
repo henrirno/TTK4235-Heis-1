@@ -12,62 +12,56 @@
 #include <stdio.h>
 
 /**
- * @brief Heisen gjøres klart til bruk ved å gå til nærmeste underetasje og deretter nullstille bestillingsmatrisen.
+ * @brief Heisen gjøres klart til bruk ved aa gaa til nærmeste underetasje og deretter nullstille bestillingsmatrisen.
  *
- * @param[out] movement heisbevegelsen blir satt med retning ned.
- * @param[out] behavior heisen blir satt 
+ * @param[out] movement Heisbevegelsen blir satt med retning ned.
+ * @param[out] behavior Heisen blir satt 
  */
 void initialize_elevator();
 
 /**
- * @brief Stopper heisen på etasje og åpner dør, eller hvis inititialized stopper den heisen og setter Elevator Behaviour til idle.
+ * @brief Stopper heisen paa etasje og aapner door, eller hvis inititialized stopper den heisen og setter ElevatorBehaviour til Idle.
  *
- * @param[in] floor forteller hvilken etasje heisen er i
- * @param[out] behavior behaviour settes til DoorOpen eller Idle avhengig av casen til heisen
+ * @param[in] floor Forteller hvilken etasje heisen er i
+ * @param[out] behavior Behaviour settes til DoorOpen eller Idle avhengig av casen til heisen
  */
 void elevator_arriving_floor(int floor);
 
 /**
- * @brief Forklar hovedfunksjonaliteten til funksjonen og ikke hva den gjør i detalj.
- Haandterer knappetrykk for alle heisens tilstander. Legger til ordre til etasje @p btn_floor av type @order_type i köen. Setter retning til heisen hvis den staar i ro. Funksjonen bestemmer ogsaa retning hvis stoppknapp har blitt trykket, ved hjelp av @p elevator.prev_floor og @p elevator.prev_movement
+ * @brief Haandterer knappetrykk for alle heisens tilstander. Legger til ordre til etasje @p btn_floor av type @order_type i köen. Setter retning til heisen hvis den staar i ro. Funksjonen bestemmer ogsaa retning hvis stoppknapp har blitt trykket, ved hjelp av @p elevator.prev_floor og @p elevator.prev_movement
  *
- * @param[in] btn_floor Hvilken etasje knappen ble trykket på.
+ * @param[in] btn_floor Hvilken etasje knappen ble trykket paa.
  * @param[in] order_type Forteller type HardwareOrder.
- * @param[in] elevator.prev_floor Heisens tidligere etasje.
- * @param[in] elevator.prev_movement Heisens tidligere bevegelse.
- * @param[out] elevator.orders Bestillingen registreres i bestillingsmatrisen.
- * @param[out] elevator.movement Heisbevegelsen blir satt ut ifra bestillingen.
- * @param[out] elevator.behavior Tilstanden til heisen.
+ * @param[in, out] elevator Henter og eventuelt endrer heisens tilstand
  */
 void button_press_event(int btn_floor, HardwareOrder order_type);
 
 /**
- * @brief Lukker døren, skrur av den aktuelle bestillingslampen og nullstiller bestillingen.
+ * @brief Lukker door, skrur av den aktuelle bestillingslampen og nullstiller bestillingen.
  *
- * @param[out] movement heisbevegelsen er gitt ut i fra bestillingen.
- * @param[out] behavior forteller om heisen er i Idle, bevegelse eller om døren åpnes.
+ * @param[out] elevator Endrer heisbevegelsen oppförsel og bevegelse.
+
  */
 void close_door();
 
 /**
- * @brief Skrur av bestillingslampe spesifisert på bestillingstype. 
+ * @brief Skrur av bestillingslampe spesifisert paa bestillingstype. 
  *
- * @param[out] time_start global tidsreferanse for å sette timer-tiden
+ * @param[out] time_start Global tidsreferanse for aa sette timer-tiden
  */
 void clear_order_light();
 
 /**
- * @brief Sjekker om døren er åpen og returnerer henholdsvis 0 eller 1. 
+ * @brief Sjekker om door er aapen og returnerer henholdsvis 0 eller 1. 
  *
- * @return 1 hvis døren er åpen og 0 hvis ikke.
+ * @return 1 hvis door er aapen og 0 hvis ikke.
  */
 int check_door_open();
 
 /**
- * @brief Hvis stopp-knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen står stille i nåværende posisjon frem til knappen ikke holdes inne. Setter også nåværende etasje til -1, så heisen er uavhengig av tidligere bevegelser når stopp-knappen ikke lenger trykkes inne.
+ * @brief Hvis stopp-knappen holdes inne blir alle bestillinger og bestillingslys nullstilt og heisen staar stille i naavaerende posisjon frem til knappen ikke holdes inne.
  *
- * @param[out] behaviour forteller om heisens tilstand
- * @param[out] floor nåværende etasje
+ * @param[out] elevator Endrer heisbevegelsen oppförsel og etasje.
  */
 void stop_button_pressed();
 

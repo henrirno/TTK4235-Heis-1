@@ -11,8 +11,8 @@
 /**
  * @brief Datatype som beskriver tilstanden til heisen.
  *
- * @param Idle Heis står i ro.
- * @param DoorOpen Heisdør er åpen.
+ * @param Idle Heis staar i ro.
+ * @param DoorOpen Heisdoor er aapen.
  * @param Moving Heisen er i bevegelse.
  * @param Initializing Heisen er initialisers.
  */
@@ -25,12 +25,12 @@ typedef enum  {
 
 
 /**
- * @brief Konstruerer en struct med heisens bevegelser, etasjer og bestillinger som medlemsvariabler
+ * @brief Konstruerer en struct med heisens bevegelser, etasjer og bestillinger som medlemsvariabler.
  *
  * @param behaviour Heistilstand.
  * @param movement Heisbevegelse.
  * @param prev_movement Forrige heisbevegelse.
- * @param floor Nåværende etasje.
+ * @param floor Naavaerende etasje.
  * @param prev_floor Forrige etasje.
  * @param orders 4(etasjer)x3(knapper)-bestillingsmatrise.
  */
@@ -60,7 +60,7 @@ void print_orders(Elevator elevator);
 /**
  * @brief Printer bestillingstypen @p order_type til terminalen.
  *
- * @param[in] order_type 
+ * @param[in] order_type Bestillingstypen.
  */
 void print_order_type(HardwareOrder order_type);
 
