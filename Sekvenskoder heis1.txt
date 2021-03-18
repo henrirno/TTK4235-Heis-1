@@ -1,0 +1,101 @@
+title Sekvensdiagram - Heis1
+
+participant Passenger
+participant elevator
+participant fsm
+participant orders
+participant timer
+participant hardware
+
+
+Passenger->elevator:Order elevator from 1st floor.
+activate elevator
+
+elevator -> fsm: button_press_event(0, HARDWARE_ORDER_UP)
+activate fsm
+fsm -> hardware: BESTILLINGSLYS PÅ
+fsm -> orders: orders_below(elevator)
+activate orders
+fsm <-- orders: 1
+activate fsm
+deactivate orders
+fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_DOWN)
+deactivate fsm
+fsm-->elevator: moving
+deactivate fsm
+
+
+loop for i < HARDWARE_NUMBER_FLOORS
+hardware -> elevator: hardware_read_floor_sensor(i)
+activate elevator
+elevator -> fsm: elevator_arriving_floor()
+deactivate elevator
+activate fsm
+
+fsm-> orders: should_elevator_stop(Elevator elevator);
+activate orders
+orders --> fsm: 1
+end
+deactivate orders
+fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_STOP)
+fsm ->hardware: hardware_command_door_open(1) 
+fsm -> timer: start_timer()
+activate timer
+fsm --> elevator: DoorOpen
+deactivate fsm
+deactivate fsm
+
+fsm <-- timer: timed_out()
+deactivate timer
+activate fsm
+
+fsm -> timer: reset_timer()
+deactivate fsm
+
+elevator -> fsm: close_door
+activate fsm
+fsm ->hardware: hardware_command_door_open(0) 
+fsm -> orders: clear_elevator_order
+fsm ->hardware: CLEAR LIGHT
+fsm -->elevator:movement
+deactivate fsm
+deactivate elevator
+
+
+Passenger->elevator:Order elevator to 4th floor.
+activate elevator
+
+elevator -> fsm: button_press_event(4, HARDWARE_ORDER_INSIDE)
+activate fsm
+fsm ->orders: order_choose_direction(elevator
+activate orders
+fsm <-- orders: HARDWARE_MOVEMENT_UP
+deactivate orders
+activate fsm
+fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_UP)
+deactivate fsm
+deactivate fsm
+
+
+loop for i < HARDWARE_NUMBER_FLOORS
+hardware -> elevator: hardware_read_floor_sensor(i)
+elevator ->fsm: elevator_arriving_floor()
+activate fsm
+
+fsm-> orders: should_elevator_stop(Elevator elevator);
+activate orders
+orders --> fsm: 1
+deactivate orders
+end
+fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_STOP)
+fsm ->hardware: hardware_command_door_open(1) 
+fsm -> timer: start_timer()
+activate timer
+fsm --> elevator: DoorOpen
+deactivate fsm
+fsm <-- timer: timed_out()
+deactivate timer
+
+fsm -> timer: reset_timer()
+
+deactivate elevator
