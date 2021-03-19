@@ -1,6 +1,7 @@
 title Sekvensdiagram - Heis1
 
 participant Passenger
+participant main
 participant elevator
 participant fsm
 participant orders
@@ -8,78 +9,93 @@ participant timer
 participant hardware
 
 
-Passenger->elevator:Order elevator from 1st floor.
-activate elevator
+Passenger->main:Order elevator from 1st floor.
+activate main
 
-elevator -> fsm: button_press_event(0, HARDWARE_ORDER_UP)
+main -> fsm: button_press_event(0, HARDWARE_ORDER_UP)
+deactivate main
 activate fsm
-fsm -> hardware: BESTILLINGSLYS PÅ
+fsm -> hardware: hardware_command_order_light(1, HARDWARE_ORDER_UP, 1);
 fsm -> orders: orders_below(elevator)
 activate orders
 fsm <-- orders: 1
-activate fsm
 deactivate orders
+activate fsm
+elevator <-- fsm: movement = HARDWARE_MOVEMENT_DOWN
+activate elevator
 fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_DOWN)
 deactivate fsm
-fsm-->elevator: moving
+fsm-->elevator: Moving
 deactivate fsm
 
 
 loop for i < HARDWARE_NUMBER_FLOORS
-hardware -> elevator: hardware_read_floor_sensor(i)
-activate elevator
-elevator -> fsm: elevator_arriving_floor()
-deactivate elevator
+hardware -> main: hardware_read_floor_sensor(i)
+activate main
+main -> fsm: elevator_arriving_floor(i)
+deactivate main
 activate fsm
 
 fsm-> orders: should_elevator_stop(Elevator elevator);
 activate orders
 orders --> fsm: 1
-end
 deactivate orders
+end 
+
 fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_STOP)
 fsm ->hardware: hardware_command_door_open(1) 
 fsm -> timer: start_timer()
 activate timer
 fsm --> elevator: DoorOpen
 deactivate fsm
-deactivate fsm
 
 fsm <-- timer: timed_out()
 deactivate timer
 activate fsm
-
+main <-- fsm: timed_out()
+activate main
 fsm -> timer: reset_timer()
 deactivate fsm
 
-elevator -> fsm: close_door
+main -> fsm: close_door()
+deactivate main
 activate fsm
+fsm ->hardware: hardware_command_order_light(1, HARDWARE_ORDER_UP, 0)
+fsm -> orders: clear_elevator_order(elevator)
+activate orders
+fsm <--orders: elevator
+deactivate orders
 fsm ->hardware: hardware_command_door_open(0) 
-fsm -> orders: clear_elevator_order
-fsm ->hardware: CLEAR LIGHT
-fsm -->elevator:movement
+fsm -->elevator:Idle
 deactivate fsm
 deactivate elevator
 
 
-Passenger->elevator:Order elevator to 4th floor.
-activate elevator
-
-elevator -> fsm: button_press_event(4, HARDWARE_ORDER_INSIDE)
+Passenger->main:Order elevator to 4th floor.
+activate main
+main -> fsm: button_press_event(4, HARDWARE_ORDER_INSIDE)
+deactivate main
 activate fsm
-fsm ->orders: order_choose_direction(elevator
+fsm ->hardware: hardware_command_order_light(4, HARDWARE_ORDER_INSIDE, 1)
+fsm ->orders: order_choose_direction(elevator)
 activate orders
 fsm <-- orders: HARDWARE_MOVEMENT_UP
 deactivate orders
 activate fsm
+elevator <-- fsm: movement = HARDWARE_MOVEMENT_UP
+activate elevator
 fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_UP)
 deactivate fsm
+elevator <-- fsm: Moving
 deactivate fsm
 
 
 loop for i < HARDWARE_NUMBER_FLOORS
-hardware -> elevator: hardware_read_floor_sensor(i)
-elevator ->fsm: elevator_arriving_floor()
+hardware -> main: hardware_read_floor_sensor(i)
+activate main
+main -> fsm: elevator_arriving_floor(i)
+deactivate main
+
 activate fsm
 
 fsm-> orders: should_elevator_stop(Elevator elevator);
@@ -87,15 +103,33 @@ activate orders
 orders --> fsm: 1
 deactivate orders
 end
+fsm ->hardware: hardware_command_order_light(4, HARDWARE_ORDER_INSIDE, 0)
 fsm -> hardware: hardware_command_movement(HARDWARE_MOVEMENT_STOP)
 fsm ->hardware: hardware_command_door_open(1) 
+
 fsm -> timer: start_timer()
 activate timer
 fsm --> elevator: DoorOpen
 deactivate fsm
 fsm <-- timer: timed_out()
 deactivate timer
-
+activate fsm
+main <-- fsm: timed_out()
+activate main
 fsm -> timer: reset_timer()
+deactivate fsm
+
+main -> fsm: close_door()
+deactivate main
+activate fsm
+fsm ->hardware: hardware_command_order_light(4, HARDWARE_ORDER_INSIDE, 0)
+fsm -> orders: clear_elevator_order(elevator)
+activate orders
+fsm <--orders: elevator
+deactivate orders
+fsm ->hardware: hardware_command_door_open(0) 
+
+fsm -->elevator: Idle
+deactivate fsm
 
 deactivate elevator
